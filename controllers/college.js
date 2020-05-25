@@ -7,7 +7,7 @@ exports.getCollege = async(req, res, next) => {
         const page = +req.query.page || 1;
         let total = await College.countDocuments();
         let totalPages = Math.ceil(total / 10);
-        const colleges = await College.find().skip((page - 1) * 10).limit(10);
+        const colleges = await College.find();
         res.render('college', { colleges, totalPages, page, total });
     } catch (err) {
         if (!err.statusCode) {
@@ -107,7 +107,7 @@ exports.getDeleteCollege = async(req, res, next) => {
 
 exports.getCsv = async(req, res, next) => {
     try {
-        const registeration = await College.find().lean();
+        const registeration = await College.find().select('-_id -__v').lean();
         const jsonexport = require('jsonexport');
         return jsonexport(registeration, function(err, csv) {
             if (err) throw err;

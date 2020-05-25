@@ -13,7 +13,7 @@ const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/users');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/school?retryWrites=true&w=majority';
+const MONGODB_URI = 'mongodb://localhost:27017/school';
 
 const app = express();
 const store = new MongoDBStore({

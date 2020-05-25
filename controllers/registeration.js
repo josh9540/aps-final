@@ -15,7 +15,7 @@ exports.getRegistration = async(req, res, next) => {
         const page = +req.query.page || 1;
         let total = await UserRegistration.countDocuments();
         let totalPages = Math.ceil(total / 10);
-        const users = await UserRegistration.find().skip((page - 1) * 10).limit(10);
+        const users = await UserRegistration.find();
         res.render('list', { users, totalPages, page, total });
     } catch (err) {
         if (!err.statusCode) {
@@ -320,7 +320,7 @@ exports.deleteRegisteration = async(req, res, next) => {
 
 exports.getCsv = async(req, res, next) => {
     try {
-        const registeration = await UserRegistration.find().lean();
+        const registeration = await UserRegistration.find().select('-_id -__v').lean();
         const jsonexport = require('jsonexport');
         return jsonexport(registeration, function(err, csv) {
             if (err) throw err;

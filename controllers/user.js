@@ -9,7 +9,7 @@ exports.getUser = async(req, res, next) => {
             const page = +req.query.page || 1;
             let total = await User.countDocuments();
             let totalPages = Math.ceil(total / 10);
-            const users = await User.find().skip((page - 1) * 10).limit(10);
+            const users = await User.find();
             res.render('users', { users, totalPages, page, total });
         } else {
             res.redirect('/admin/')

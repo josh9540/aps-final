@@ -11,7 +11,7 @@ exports.getCourses = async(req, res, next) => {
         const page = +req.query.page || 1;
         let total = await Course.countDocuments();
         let totalPages = Math.ceil(total / 10);
-        const courses = await Course.find().skip((page - 1) * 10).limit(10);
+        const courses = await Course.find();
         res.render('course', { courses, totalPages, page, total });
     } catch (err) {
         if (!err.statusCode) {
@@ -112,7 +112,7 @@ exports.getDeleteCourse = async(req, res, next) => {
 
 exports.getCsv = async(req, res, next) => {
     try {
-        const registeration = await Course.find().lean();
+        const registeration = await Course.find().select('-_id -__v').lean();
         const jsonexport = require('jsonexport');
         return jsonexport(registeration, function(err, csv) {
             if (err) throw err;
