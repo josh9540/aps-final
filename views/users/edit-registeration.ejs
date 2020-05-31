@@ -117,9 +117,22 @@
     <link href="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22" rel="stylesheet">
 
 
+    <style>
+        .content-wraper {
+            margin-left: 0;
+        }
+    </style>
 
-
-
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
 
 
 
@@ -130,156 +143,9 @@
 
 
     <!-- TOP NAVBAR -->
-    <div class="wrapper">
 
-        <header class="main-header">
-            <!-- Logo -->
-
-            <a href="/admin" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img src= "/static/aps-logo.png" height=50 width=50 /></span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>APS Group</b></span>
-            </a>
-
-
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
-                        <li>
-
-
-                            <!-- User Account: style can be found in dropdown.less -->
-
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user-circle" style="color: white; font-size: 1.4em;"></i>
-                                    <span class="hidden-xs">
-       
-       Student
-       
-   </span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <i class="fa fa-user-circle" style="color: white; font-size: 7em;"></i>
-                                        <p>
-
-                                            Student
-
-                                            <br>
-                                        </p>
-                                        <p>
-                                            user
-                                        </p>
-                                    </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <!-- /.row -->
-                                    </li>
-                                    <!-- Menu Footer-->
-
-                                </ul>
-                            </li>
-
-
-
-
-                        </li>
-                    </ul>
-
-
-                    <ul class="nav navbar-nav navbar-right">
-
-
-
-
-                    </ul>
-
-
-                </div>
-            </nav>
-        </header>
-        <!-- / TOP NAVBAR -->
-
-        <!-- LEFT MENU -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <i class="fa fa-user-circle" style="color: white; font-size: 2.5em;"></i>
-                    </div>
-                    <div class="pull-left info">
-                        <p>
-                            Student
-
-                        </p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-            </button>
-          </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
-                    <li class="header">MAIN NAVIGATION</li>
-
-
-
-                    <li class="active">
-                        <a href="/">
-
-
-                            <i class="fa fa-book"></i> Registrations
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/survey/">
-
-
-                            <i class="fa fa-book"></i> Survey
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/login">
-
-
-                            <i class="fa fa-book"></i> Admin
-
-                        </a>
-                    </li>
-
-
-                </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-
-        <!-- Content Wrapper. Contains page content color white-->
-        <div class="content-wrapper">
+    <!-- Content Wrapper. Contains page content color white-->
+    <div class="content-wrapper">
 
 
 
@@ -297,32 +163,38 @@
 
 
 
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/">Create</a>
-                </li>
-                <li>
-                    <a href="/registeration/edit" class="active">Edit</a>
-                </li>
-            </ul>
-            <% if (errorMessage) { %>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                    <%= errorMessage %>
-                </div>
-                <% } %>
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="/">Create Registration</a>
+            </li>
+            <li>
+                <a href="/registeration/edit" class="active">Edit Registration</a>
+            </li>
+            <li>
+                <a href="/survey">Create Survey</a>
+            </li>
+            <li>
+                <a href="/registeration/edit">Edit Survey</a>
+            </li>
+        </ul>
+        <% if (errorMessage) { %>
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                <%= errorMessage %>
+            </div>
+            <% } %>
 
 
-                    <form action="/registeration/edit/true" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="form-group">
-                            <label for="courses" class="col-md-2 control-label">Course
+                <form action="/registeration/edit/true" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="form-group">
+                        <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-role="select2" id="departments" multiple name="courses">
+                            <select class="form-control" data-role="select2" id="departments" multiple name="courses">
                                     <% courses.forEach(c => { %>
                                         <option value="<%= c.courseName %>" 
                                             <% if(user.courses.includes(c.courseName)) { %>
@@ -331,15 +203,15 @@
                                             ><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
                                     <% }) %>
                                 </select>
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="college" class="col-md-2 control-label">College
+                    </div>
+                    <div class="form-group">
+                        <label for="college" class="col-md-2 control-label">College
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" id="college" name="college">
+                            <select class="form-control" id="college" name="college">
                                     <% colleges.forEach(e => { %>
                                         <option value="<%= e.collegeName %>"
                                             <% if(user.college === (e.college)) { %>
@@ -351,94 +223,94 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <label for="name" class="col-md-2 control-label">Name
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Name
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="name" name="name" type="text" value="<%= user.name %>">
+                            <input class="form-control" id="name" name="name" type="text" value="<%= user.name %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="father_name" class="col-md-2 control-label">Father Name
+
+                    <div class="form-group">
+                        <label for="father_name" class="col-md-2 control-label">Father Name
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="father_name" name="fatherName" required type="text" value="<%= user.fatherName %>">
+                            <input class="form-control" id="father_name" name="fatherName" required type="text" value="<%= user.fatherName %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="father_occupation" class="col-md-2 control-label">Father Occupation
+
+                    <div class="form-group">
+                        <label for="father_occupation" class="col-md-2 control-label">Father Occupation
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="father_occupation" name="fatherOccupation" required type="text" value="<%= user.fatherOccupation %>">
+                            <input class="form-control" id="father_occupation" name="fatherOccupation" required type="text" value="<%= user.fatherOccupation %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
+
+                    <div class="form-group">
+                        <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="datetime" value="<%= new Date(Date.parse(user.dob)) %>">
+                            <input class="form-control" id="date_of_birth" name="dob" type="datetime" data-role="datepicker" value="<%= user.dob %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="category" class="col-md-2 control-label">Category
+
+                    <div class="form-group">
+                        <label for="category" class="col-md-2 control-label">Category
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" id="category" name="category">
+                            <select class="form-control" data-allow-blank="1" id="category" name="category">
                                     <option value="__None" <%= (user.category === "__None")?"selected":" " %>> </option>
                                     <option selected value="GEN" <%= (user.category === "GEN")?"selected":" " %>>GEN</option>
                                     <option value="OBC" <%= (user.category === "OBC")?"selected":" " %>>OBC</option>
@@ -447,62 +319,62 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Email
+
+                    <div class="form-group">
+                        <label for="email" class="col-md-2 control-label">Email
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="email" name="email" required type="text" value="<%= user.email %>">
+                            <input class="form-control" id="email" name="email" required type="text" value="<%= user.email %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="address" class="col-md-2 control-label">Address
+
+                    <div class="form-group">
+                        <label for="address" class="col-md-2 control-label">Address
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="address" name="address" type="text" value="<%= user.address %>">
+                            <input class="form-control" id="address" name="address" type="text" value="<%= user.address %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="state" class="col-md-2 control-label">State
+
+                    <div class="form-group">
+                        <label for="state" class="col-md-2 control-label">State
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" id="state" name="state">
+                            <select class="form-control" data-allow-blank="1" id="state" name="state">
                                     <option value="__None" <%= (user.state === "__None")?"selected":"" %>> </option>
                                     <option value="Andhra Pradesh" <%= (user.state === "Andra Pradesh")?"selected":" " %>>Andhra Pradesh</option>
                                     <option value="Arunachal Pradesh" <%= (user.state === "Arunachal Pradesh")?"selected":" " %>>Arunachal Pradesh</option>
@@ -531,164 +403,164 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="dist" class="col-md-2 control-label">District
+
+                    <div class="form-group">
+                        <label for="dist" class="col-md-2 control-label">District
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="dist" name="district" type="text" value="<%= user.district %>">
+                            <input class="form-control" id="dist" name="district" type="text" value="<%= user.district %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="pincode" class="col-md-2 control-label">Pincode
+
+                    <div class="form-group">
+                        <label for="pincode" class="col-md-2 control-label">Pincode
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="pincode" name="pincode" type="text" value="<%= user.pincode %>">
+                            <input class="form-control" id="pincode" name="pincode" type="text" value="<%= user.pincode %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="contact_no" class="col-md-2 control-label">Contact No.
+
+                    <div class="form-group">
+                        <label for="contact_no" class="col-md-2 control-label">Contact No.
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="contact_no" name="contact" required type="text" value="<%= user.contact %>">
+                            <input class="form-control" id="contact_no" name="contact" required type="text" value="<%= user.contact %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="marital_status" class="col-md-2 control-label">Marital Status
+
+                    <div class="form-group">
+                        <label for="marital_status" class="col-md-2 control-label">Marital Status
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="marital_status" name="maritalStatus">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="marital_status" name="maritalStatus">
                                     <option value="__None" <%= (user.maritalStatus === "__None")?"selected":" " %>> </option>
                                     <option value="Unmarried" <%= (user.maritalStatus === "Unmarried")?"selected":" " %>>Unmarried</option>
                                     <option value="Married" <%= (user.maritalStatus === "Married")?"selected":" " %>>Married</option>
                                     <option value="Other" <%= (user.maritalStatus === "Other")?"selected":" " %>>Other</option></select>
 
 
-                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label for="height" class="col-md-2 control-label">Height
+        &nbsp;
+    </label>
+                        <div class="col-md-10">
+
+                            <input class="form-control" id="height" name="height" type="text" value="<%= user.height %>">
+
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="height" class="col-md-2 control-label">Height
+
+                    <div class="form-group">
+                        <label for="weight" class="col-md-2 control-label">Weight
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="height" name="height" type="text" value="<%= user.height %>">
+                            <input class="form-control" id="weight" name="weight" type="text" value="<%= user.weight %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="weight" class="col-md-2 control-label">Weight
+
+                    <div class="form-group">
+                        <label for="paid" class="col-md-2 control-label">Paid
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="weight" name="weight" type="text" value="<%= user.weight %>">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="paid" class="col-md-2 control-label">Paid
-        &nbsp;
-    </label>
-                            <div class="col-md-10">
-
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="paid" name="paid">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="paid" name="paid">
                                     <option value="__None" <%= (user.paid === "__None")?"selected":" " %>> </option>
                                     <option value="Not Paid" <%= (user.paid === "Not Paid")?"selected":" " %>>Not Paid</option>
                                     <option value="Paid" <%= (user.paid === "Paid")?"selected":" " %>>Paid</option></select>
 
 
-                            </div>
-
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="blood_group" class="col-md-2 control-label">Blood Group
+
+                    <div class="form-group">
+                        <label for="blood_group" class="col-md-2 control-label">Blood Group
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup">
                                     <option value="__None" <%= (user.bloodGroup === "__None")?"selected":" " %>> </option>
                                     <option value="A+" <%= (user.bloodGroup === "A+")?"selected":" " %>>A+</option>
                                     <option value="B+" <%= (user.bloodGroup === "B+")?"selected":" " %>>B+</option>
@@ -701,351 +573,351 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_university" class="col-md-2 control-label">Tenth University
+
+                    <div class="form-group">
+                        <label for="tenth_university" class="col-md-2 control-label">Tenth University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_university" name="tenthUniversity" type="text" value="<%= user.tenthUniversity %>">
+                            <input class="form-control" id="tenth_university" name="tenthUniversity" type="text" value="<%= user.tenthUniversity %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_year" class="col-md-2 control-label">Tenth Year
+
+                    <div class="form-group">
+                        <label for="tenth_year" class="col-md-2 control-label">Tenth Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="tenth_year" name="tenthYear" type="datetime" value="<%= user.tenthYear %>">
+                            <input class="form-control" id="tenth_year" name="tenthYear" type="datetime" data-role="datepicker" value="<%= user.tenthYear %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_subject" class="col-md-2 control-label">Tenth Subject
+
+                    <div class="form-group">
+                        <label for="tenth_subject" class="col-md-2 control-label">Tenth Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_subject" name="tenthSubject" type="text" value="<%= user.tenthSubject %>">
+                            <input class="form-control" id="tenth_subject" name="tenthSubject" type="text" value="<%= user.tenthSubject %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_percentage" class="col-md-2 control-label">Tenth Percentage
+
+                    <div class="form-group">
+                        <label for="tenth_percentage" class="col-md-2 control-label">Tenth Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_percentage" name="tenthPercentage" type="text" value="<%= user.tenthPercentage %>">
+                            <input class="form-control" id="tenth_percentage" name="tenthPercentage" type="text" value="<%= user.tenthPercentage %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_university" class="col-md-2 control-label">Twelve University
+
+                    <div class="form-group">
+                        <label for="twelve_university" class="col-md-2 control-label">Twelve University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_university" name="twelveUniversity" type="text" value="<%= user.twelveUniversity %>">
+                            <input class="form-control" id="twelve_university" name="twelveUniversity" type="text" value="<%= user.twelveUniversity %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_year" class="col-md-2 control-label">Twelve Year
+
+                    <div class="form-group">
+                        <label for="twelve_year" class="col-md-2 control-label">Twelve Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="twelve_year" name="twelveYear" type="datetime" value="<%= user.twelveYear %>">
+                            <input class="form-control" id="twelve_year" name="twelveYear" type="datetime" data-role="datepicker" value="<%= user.twelveYear %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_subject" class="col-md-2 control-label">Twelve Subject
+
+                    <div class="form-group">
+                        <label for="twelve_subject" class="col-md-2 control-label">Twelve Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_subject" name="twelveSubject" type="text" value="<%= user.twelveSubject %>">
+                            <input class="form-control" id="twelve_subject" name="twelveSubject" type="text" value="<%= user.twelveSubject %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_percentage" class="col-md-2 control-label">Twelve Percentage
+
+                    <div class="form-group">
+                        <label for="twelve_percentage" class="col-md-2 control-label">Twelve Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_percentage" name="twelvePercentage" type="text" value="<%= user.twelvePercentage %>">
+                            <input class="form-control" id="twelve_percentage" name="twelvePercentage" type="text" value="<%= user.twelvePercentage %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_university" class="col-md-2 control-label">Graduation University
+
+                    <div class="form-group">
+                        <label for="graduation_university" class="col-md-2 control-label">Graduation University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_university" name="graduationUniversity" type="text" value="<%= user.graduationUniversity %>">
+                            <input class="form-control" id="graduation_university" name="graduationUniversity" type="text" value="<%= user.graduationUniversity %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_year" class="col-md-2 control-label">Graduation Year
+
+                    <div class="form-group">
+                        <label for="graduation_year" class="col-md-2 control-label">Graduation Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="graduation_year" name="graduationYear" type="datetime" value="<%= user.graduationYear %>">
+                            <input class="form-control" id="graduation_year" name="graduationYear" type="datetime" data-role="datepicker" value="<%= user.graduationYear %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_subject" class="col-md-2 control-label">Graduation Subject
+
+                    <div class="form-group">
+                        <label for="graduation_subject" class="col-md-2 control-label">Graduation Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_subject" name="graduationSubject" type="text" value="<%= user.graduationSubject %>">
+                            <input class="form-control" id="graduation_subject" name="graduationSubject" type="text" value="<%= user.graduationSubject %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_percentage" class="col-md-2 control-label">Graduation Percentage
+
+                    <div class="form-group">
+                        <label for="graduation_percentage" class="col-md-2 control-label">Graduation Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_percentage" name="graduationPercentage" type="text" value="<%= user.graduationPercentage %>">
+                            <input class="form-control" id="graduation_percentage" name="graduationPercentage" type="text" value="<%= user.graduationPercentage %>">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="document_idcard" class="col-md-2 control-label">ID Proof
+
+                    <div class="form-group">
+                        <label for="document_idcard" class="col-md-2 control-label">ID Proof
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="document_idcard" name="document_idcard" type="file">
+                            <input class="form-control" id="document_idcard" name="document_idcard" type="file">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_marksheet" class="col-md-2 control-label">Tenth Marksheet
+
+                    <div class="form-group">
+                        <label for="tenth_marksheet" class="col-md-2 control-label">Tenth Marksheet
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_marksheet" name="tenth_marksheet" type="file" value="">
+                            <input class="form-control" id="tenth_marksheet" name="tenth_marksheet" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_marksheet" class="col-md-2 control-label">Twelve Marksheet
+
+                    <div class="form-group">
+                        <label for="twelve_marksheet" class="col-md-2 control-label">Twelve Marksheet
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_marksheet" name="twelve_marksheet" type="file" value="">
+                            <input class="form-control" id="twelve_marksheet" name="twelve_marksheet" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_document" class="col-md-2 control-label">University Document
+
+                    <div class="form-group">
+                        <label for="graduation_document" class="col-md-2 control-label">University Document
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_document" name="graduation_document" type="file" value="">
+                            <input class="form-control" id="graduation_document" name="graduation_document" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="photo" class="col-md-2 control-label">Student Photo
+
+                    <div class="form-group">
+                        <label for="photo" class="col-md-2 control-label">Student Photo
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="photo" name="photo" type="file">
+                            <input class="form-control" id="photo" name="photo" type="file">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
-                        <input type="hidden" name="_id" value="<%= (user._id) %>">
 
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 submit-row">
-                                <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
-                            </div>
+                    <input type="hidden" name="_id" value="<%= (user._id) %>">
+
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 submit-row">
+                            <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 submit-row">
-                                <a href="/admin/registeration/delete/<%= (user._id) %>" class="btn btn-primary btn-danger" style="width: 100%;">Delete</a>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 submit-row">
+                            <a href="/admin/registeration/delete/<%= (user._id) %>" class="btn btn-primary btn-danger" style="width: 100%;">Delete</a>
                         </div>
-                        <hr>
-                    </form>
+                    </div>
+                    <hr>
+                </form>
 
 
 
@@ -1053,38 +925,38 @@
 
 
 
+    </div>
+    <!-- / Content Wrapper. color white -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Stats tab content -->
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                </a>
+                </li>
+                </ul>
+            </div>
+            <!-- /.tab-pane -->
         </div>
-        <!-- / Content Wrapper. color white -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Stats tab content -->
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    </a>
-                    </li>
-                    </ul>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
-            <div class="pull-right hidden-xs">
-            </div>
-        </footer>
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
+        <div class="pull-right hidden-xs">
+        </div>
+    </footer>
 
 
     </div>

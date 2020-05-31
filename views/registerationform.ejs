@@ -121,7 +121,17 @@
 
 
 
-
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
 
 </head>
 
@@ -356,6 +366,19 @@
                     <form action="/admin/registeration/create" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
+                            <label for="email" class="col-md-2 control-label">Email
+        
+          <strong style="color: red">&#42;</strong>
+    </label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" id="email" name="email" required type="text" value="">
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
                             <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
     </label>
@@ -363,7 +386,7 @@
 
                                 <select class="form-control" data-role="select2" id="departments" multiple name="courses">
                                     <% courses.forEach(c => { %>
-                                        <option value="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
+                                        <option value="<%= c.courseName %>" id="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
                                     <% }) %>
                                 </select>
                             </div>
@@ -376,7 +399,7 @@
 
                                 <select class="form-control" id="college" name="college">
                                     <% colleges.forEach(e => { %>
-                                        <option value="<%= e.collegeName %>"><%= e.collegeName %></option>
+                                        <option value="<%= e.collegeName %>" id="<%= e.collegeName %>"><%= e.collegeName %></option>
 
                                     <% }) %>
                                 </select>
@@ -450,7 +473,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="2020-05-22">
+                                <input class="form-control" id="date_of_birth" name="dob" type="date" value="new Date()">
 
 
                             </div>
@@ -469,39 +492,18 @@
     </label>
                             <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="category" name="category"><option value="__None"> </option><option selected value="GEN">GEN</option><option value="OBC">OBC</option><option value="SC">SC</option><option value="ST">ST</option></select>
+                                <select class="form-control" data-allow-blank="1" data-role="select2" id="category" name="category">
+                                    <option value="__None"> </option>
+                                    <option selected value="GEN">GEN</option>
+                                    <option value="OBC">OBC</option>
+                                    <option value="SC">SC</option>
+                                    <option value="ST">ST</option>
+                                </select>
 
 
                             </div>
 
                         </div>
-
-
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Email
-        
-          <strong style="color: red">&#42;</strong>
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="email" name="email" required type="text" value="">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
                         <div class="form-group">
                             <label for="address" class="col-md-2 control-label">Address
         &nbsp;
@@ -527,7 +529,16 @@
     </label>
                             <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="state" name="state"><option value="__None"> </option><option value="Andhra Pradesh">Andhra Pradesh</option><option value="Arunachal Pradesh">Arunachal Pradesh</option><option value="Assam">Assam</option><option value="Bihar">Bihar</option><option value="Chhattisgarh">Chhattisgarh</option><option value="Goa">Goa</option><option value="Gujarat">Gujarat</option><option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option></select>
+                                <select class="form-control" data-allow-blank="1" data-role="select2" id="state" name="state">
+                                    <option value="__None"> </option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option></select>
 
 
                             </div>
@@ -680,7 +691,17 @@
     </label>
                             <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup"><option value="__None"> </option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option><option value="O+">O+</option><option value="A-">A-</option><option value="B-">B-</option><option value="AB-">AB-</option><option value="O-">O-</option></select>
+                                <select class="form-control" id="blood_group" name="bloodGroup">
+                                    <option value="__None"> </option>
+                                    <option value="A+" id="A+">A+</option>
+                                    <option value="B+" id="B+">B+</option>
+                                    <option value="AB+" id="AB+">AB+</option>
+                                    <option value="O+" id="O+">O+</option>
+                                    <option value="A-" id="A-">A-</option>
+                                    <option value="B-" id="B-">B-</option>
+                                    <option value="AB-" id="AB-">AB-</option>
+                                    <option value="O-" id="O-">O-</option>
+                                </select>
 
 
                             </div>
@@ -718,7 +739,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="tenth_year" name="tenthYear" type="text" value="">
+                                <input class="form-control" id="tenth_year" name="tenthYear" type="date" value="">
 
 
                             </div>
@@ -794,7 +815,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="twelve_year" name="twelveYear" type="text" value="">
+                                <input class="form-control" id="twelve_year" name="twelveYear" type="date" value="">
 
 
                             </div>
@@ -870,7 +891,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="graduation_year" name="graduationYear" type="text" value="">
+                                <input class="form-control" id="graduation_year" name="graduationYear" type="date" value="">
 
 
                             </div>
@@ -1123,8 +1144,30 @@
     <script src="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22"></script>
 
     <script src="/admin/static/admin/js/form.js?v=1.0.1"></script>
-
-
+    <script>
+        document.getElementById('email').addEventListener('keyup', () => {
+            setTimeout(() => {
+                const email = document.getElementById('email').value;
+                if (email.includes('@')) {
+                    fetch('http://localhost:3000/survey/find/' + email)
+                        .then(data => {
+                            return data.json()
+                        }).then(jsonData => {
+                            document.getElementById('name').value = jsonData.user.name;
+                            document.getElementById('father_name').value = jsonData.user.fatherName;
+                            document.getElementById('date_of_birth').value = jsonData.user.dob;
+                            document.getElementById('address').value = jsonData.user.address;
+                            document.getElementById('dist').value = jsonData.user.district;
+                            document.getElementById('contact_no').value = jsonData.user.contact;
+                            document.getElementById('height').value = jsonData.user.height;
+                            document.getElementById('weight').value = jsonData.user.weight;
+                            document.getElementById(jsonData.user.college).selected = "true";
+                            document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                        })
+                }
+            }, 1000);
+        })
+    </script>
 
 
 </body>

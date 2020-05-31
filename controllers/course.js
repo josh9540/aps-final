@@ -2,17 +2,10 @@ const { validationResult } = require('express-validator');
 
 const Course = require('../modals/Courses');
 
-exports.getDashboard = (req, res, next) => {
-    res.render('dashboard');
-}
-
 exports.getCourses = async(req, res, next) => {
     try {
-        const page = +req.query.page || 1;
-        let total = await Course.countDocuments();
-        let totalPages = Math.ceil(total / 10);
         const courses = await Course.find();
-        res.render('course', { courses, totalPages, page, total });
+        res.render('course', { courses });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

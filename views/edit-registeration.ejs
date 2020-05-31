@@ -458,7 +458,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="datetime" value="<%= new Date(Date.parse(user.dob)) %>">
+                                <input class="form-control" id="date_of_birth" name="dob" data-role="datepicker" type="datetime" value="<%= new Date(user.dob) %>">
 
 
                             </div>
@@ -775,7 +775,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="tenth_year" name="tenthYear" type="datetime" value="<%= user.tenthYear %>">
+                                <input class="form-control" id="tenth_year" name="tenthYear" data-role="datepicker" type="datetime" value="<%= user.tenthYear %>">
 
 
                             </div>
@@ -851,7 +851,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="twelve_year" name="twelveYear" type="datetime" value="<%= user.twelveYear %>">
+                                <input class="form-control" id="twelve_year" name="twelveYear" data-role="datepicker" type="datetime" value="<%= user.twelveYear %>">
 
 
                             </div>
@@ -926,10 +926,7 @@
         &nbsp;
     </label>
                             <div class="col-md-10">
-
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="graduation_year" name="graduationYear" type="datetime" value="<%= user.graduationYear %>">
-
-
+                                <input class="form-control" id="graduation_year" name="graduationYear" type="datetime" data-role="datepicker" value="<%= user.graduationYear %>">
                             </div>
 
                         </div>

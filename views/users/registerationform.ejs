@@ -122,7 +122,22 @@
 
 
 
-
+    <style>
+        .content-wrapper {
+            width: 100vw;
+            margin-left: 0;
+        }
+    </style>
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -130,209 +145,86 @@
 
 
     <!-- TOP NAVBAR -->
-    <div class="wrapper">
-
-        <header class="main-header">
-            <!-- Logo -->
-
-            <a href="/admin" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img src= "/static/aps-logo.png" height=50 width=50 /></span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>APS Group</b></span>
-            </a>
 
 
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
-                        <li>
-
-
-                            <!-- User Account: style can be found in dropdown.less -->
-
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user-circle" style="color: white; font-size: 1.4em;"></i>
-                                    <span class="hidden-xs">
-       
-       Student
-       
-   </span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <i class="fa fa-user-circle" style="color: white; font-size: 7em;"></i>
-                                        <p>
-                                            Student
-                                            <br>
-                                        </p>
-                                        <p>
-                                            user
-                                        </p>
-                                    </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <!-- /.row -->
-                                    </li>
-                                    <!-- Menu Footer-->
-                                </ul>
-                            </li>
+    <!-- Content Wrapper. Contains page content color white-->
+    <div class="content-wrapper">
 
 
 
 
-                        </li>
-                    </ul>
-
-
-                    <ul class="nav navbar-nav navbar-right">
 
 
 
 
-                    </ul>
 
 
-                </div>
-            </nav>
-        </header>
-        <!-- / TOP NAVBAR -->
 
-        <!-- LEFT MENU -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <i class="fa fa-user-circle" style="color: white; font-size: 2.5em;"></i>
+
+
+
+
+
+
+        <ul class="nav nav-tabs">
+
+            <li class="active">
+                <a href="/">Create Registeration</a>
+            </li>
+            <li>
+                <a href="/registeration/edit">Edit Registeration</a>
+            </li>
+            <li>
+                <a href="/survey">Create Survey</a>
+            </li>
+            <li>
+                <a href="/survey/edit">Edit Survey</a>
+            </li>
+        </ul>
+        <% if (errorMessage) { %>
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                <%= errorMessage %>
+            </div>
+            <% } %>
+
+
+                <form action="/registeration/create" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="form-group">
+                        <label for="email" class="col-md-2 control-label">Email
+        
+          <strong style="color: red">&#42;</strong>
+    </label>
+                        <div class="col-md-10">
+
+                            <input class="form-control" id="email" name="email" required type="text" value="">
+
+
+                        </div>
+
                     </div>
-                    <div class="pull-left info">
-                        <p>
-                            Student
-
-                        </p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-            </button>
-          </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
-                    <li class="header">MAIN NAVIGATION</li>
-
-
-                    <li class="active">
-                        <a href="/">
-
-
-                            <i class="fa fa-book"></i> Registrations
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/survey/">
-
-
-                            <i class="fa fa-book"></i> Survey
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/admin/login">
-
-
-                            <i class="fa fa-book"></i> Admin
-
-                        </a>
-                    </li>
-
-                </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-
-        <!-- Content Wrapper. Contains page content color white-->
-        <div class="content-wrapper">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <ul class="nav nav-tabs">
-
-                <li class="active">
-                    <a href="/">Create</a>
-                </li>
-                <li>
-                    <a href="/registeration/edit">Edit</a>
-                </li>
-            </ul>
-            <% if (errorMessage) { %>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                    <%= errorMessage %>
-                </div>
-                <% } %>
-
-
-                    <form action="/registeration/create" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="form-group">
-                            <label for="courses" class="col-md-2 control-label">Course
+                    <div class="form-group">
+                        <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-role="select2" id="departments" multiple name="courses">
+                            <select class="form-control" data-role="select2" id="departments" multiple name="courses">
                                     <% courses.forEach(c => { %>
                                         <option value="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
                                     <% }) %>
                                 </select>
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="college" class="col-md-2 control-label">College
+                    </div>
+                    <div class="form-group">
+                        <label for="college" class="col-md-2 control-label">College
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" id="college" name="college">
+                            <select class="form-control" id="college" name="college">
                                     <% colleges.forEach(e => { %>
                                         <option value="<%= e.collegeName %>"><%= e.collegeName %></option>
 
@@ -340,215 +232,263 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <label for="name" class="col-md-2 control-label">Name
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Name
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="name" name="name" type="text" value="">
+                            <input class="form-control" id="name" name="name" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="father_name" class="col-md-2 control-label">Father Name
+
+                    <div class="form-group">
+                        <label for="father_name" class="col-md-2 control-label">Father Name
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="father_name" name="fatherName" required type="text" value="">
+                            <input class="form-control" id="father_name" name="fatherName" required type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="father_occupation" class="col-md-2 control-label">Father Occupation
+
+                    <div class="form-group">
+                        <label for="father_occupation" class="col-md-2 control-label">Father Occupation
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="father_occupation" name="fatherOccupation" required type="text" value="">
+                            <input class="form-control" id="father_occupation" name="fatherOccupation" required type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
+
+                    <div class="form-group">
+                        <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="2020-05-22">
+                            <input class="form-control" id="date_of_birth" name="dob" type="date" value=" ">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="category" class="col-md-2 control-label">Category
+
+                    <div class="form-group">
+                        <label for="category" class="col-md-2 control-label">Category
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="category" name="category"><option value="__None"> </option><option selected value="GEN">GEN</option><option value="OBC">OBC</option><option value="SC">SC</option><option value="ST">ST</option></select>
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="category" name="category"><option value="__None"> </option><option selected value="GEN">GEN</option><option value="OBC">OBC</option><option value="SC">SC</option><option value="ST">ST</option></select>
 
 
-                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-md-2 control-label">Address
+        &nbsp;
+    </label>
+                        <div class="col-md-10">
+
+                            <input class="form-control" id="address" name="address" type="text" value="">
+
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Email
+
+                    <div class="form-group">
+                        <label for="state" class="col-md-2 control-label">State
+        &nbsp;
+    </label>
+                        <div class="col-md-10">
+
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="state" name="state"><option value="__None"> </option><option value="Andhra Pradesh">Andhra Pradesh</option><option value="Arunachal Pradesh">Arunachal Pradesh</option><option value="Assam">Assam</option><option value="Bihar">Bihar</option><option value="Chhattisgarh">Chhattisgarh</option><option value="Goa">Goa</option><option value="Gujarat">Gujarat</option><option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option></select>
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label for="dist" class="col-md-2 control-label">District
+        &nbsp;
+    </label>
+                        <div class="col-md-10">
+
+                            <input class="form-control" id="dist" name="district" type="text" value="">
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label for="pincode" class="col-md-2 control-label">Pincode
+        &nbsp;
+    </label>
+                        <div class="col-md-10">
+
+                            <input class="form-control" id="pincode" name="pincode" type="text" value="0">
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label for="contact_no" class="col-md-2 control-label">Contact No.
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="email" name="email" required type="text" value="">
+                            <input class="form-control" id="contact_no" name="contact" required type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="address" class="col-md-2 control-label">Address
+
+                    <div class="form-group">
+                        <label for="marital_status" class="col-md-2 control-label">Marital Status
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="address" name="address" type="text" value="">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="marital_status" name="maritalStatus"><option value="__None"> </option><option value="Unmarried">Unmarried</option><option value="Married">Married</option><option value="Other">Other</option></select>
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="state" class="col-md-2 control-label">State
+
+                    <div class="form-group">
+                        <label for="height" class="col-md-2 control-label">Height
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="state" name="state"><option value="__None"> </option><option value="Andhra Pradesh">Andhra Pradesh</option><option value="Arunachal Pradesh">Arunachal Pradesh</option><option value="Assam">Assam</option><option value="Bihar">Bihar</option><option value="Chhattisgarh">Chhattisgarh</option><option value="Goa">Goa</option><option value="Gujarat">Gujarat</option><option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option></select>
+                            <input class="form-control" id="height" name="height" type="text" value="0.0">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="dist" class="col-md-2 control-label">District
+
+                    <div class="form-group">
+                        <label for="weight" class="col-md-2 control-label">Weight
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="dist" name="district" type="text" value="">
+                            <input class="form-control" id="weight" name="weight" type="text" value="0.0">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="pincode" class="col-md-2 control-label">Pincode
+
+                    <div class="form-group">
+                        <label for="paid" class="col-md-2 control-label">Paid
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="pincode" name="pincode" type="text" value="0">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="paid" name="paid"><option value="__None"> </option><option value="Not Paid">Not Paid</option><option value="Paid">Paid</option></select>
 
-
-                            </div>
 
                         </div>
 
-
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="contact_no" class="col-md-2 control-label">Contact No.
-        
-          <strong style="color: red">&#42;</strong>
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="contact_no" name="contact" required type="text" value="">
-
-
-                            </div>
-
-                        </div>
+                    </div>
 
 
 
@@ -556,431 +496,355 @@
 
 
 
-                        <div class="form-group">
-                            <label for="marital_status" class="col-md-2 control-label">Marital Status
+                    <div class="form-group">
+                        <label for="blood_group" class="col-md-2 control-label">Blood Group
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="marital_status" name="maritalStatus"><option value="__None"> </option><option value="Unmarried">Unmarried</option><option value="Married">Married</option><option value="Other">Other</option></select>
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup"><option value="__None"> </option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option><option value="O+">O+</option><option value="A-">A-</option><option value="B-">B-</option><option value="AB-">AB-</option><option value="O-">O-</option></select>
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="height" class="col-md-2 control-label">Height
+
+                    <div class="form-group">
+                        <label for="tenth_university" class="col-md-2 control-label">Tenth University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="height" name="height" type="text" value="0.0">
+                            <input class="form-control" id="tenth_university" name="tenthUniversity" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="weight" class="col-md-2 control-label">Weight
+
+                    <div class="form-group">
+                        <label for="tenth_year" class="col-md-2 control-label">Tenth Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="weight" name="weight" type="text" value="0.0">
+                            <input class="form-control" id="tenth_year" name="tenthYear" type="date" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="paid" class="col-md-2 control-label">Paid
+
+                    <div class="form-group">
+                        <label for="tenth_subject" class="col-md-2 control-label">Tenth Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="paid" name="paid"><option value="__None"> </option><option value="Not Paid">Not Paid</option><option value="Paid">Paid</option></select>
+                            <input class="form-control" id="tenth_subject" name="tenthSubject" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="blood_group" class="col-md-2 control-label">Blood Group
+
+                    <div class="form-group">
+                        <label for="tenth_percentage" class="col-md-2 control-label">Tenth Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup"><option value="__None"> </option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option><option value="O+">O+</option><option value="A-">A-</option><option value="B-">B-</option><option value="AB-">AB-</option><option value="O-">O-</option></select>
+                            <input class="form-control" id="tenth_percentage" name="tenthPercentage" type="text" value="0.0">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_university" class="col-md-2 control-label">Tenth University
+
+                    <div class="form-group">
+                        <label for="twelve_university" class="col-md-2 control-label">Twelve University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_university" name="tenthUniversity" type="text" value="">
+                            <input class="form-control" id="twelve_university" name="twelveUniversity" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_year" class="col-md-2 control-label">Tenth Year
+
+                    <div class="form-group">
+                        <label for="twelve_year" class="col-md-2 control-label">Twelve Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="tenth_year" name="tenthYear" type="text" value="">
+                            <input class="form-control" id="twelve_year" name="twelveYear" type="date" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_subject" class="col-md-2 control-label">Tenth Subject
+
+                    <div class="form-group">
+                        <label for="twelve_subject" class="col-md-2 control-label">Twelve Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_subject" name="tenthSubject" type="text" value="">
+                            <input class="form-control" id="twelve_subject" name="twelveSubject" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_percentage" class="col-md-2 control-label">Tenth Percentage
+
+                    <div class="form-group">
+                        <label for="twelve_percentage" class="col-md-2 control-label">Twelve Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_percentage" name="tenthPercentage" type="text" value="0.0">
+                            <input class="form-control" id="twelve_percentage" name="twelvePercentage" type="text" value="0.0">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_university" class="col-md-2 control-label">Twelve University
+
+                    <div class="form-group">
+                        <label for="graduation_university" class="col-md-2 control-label">Graduation University
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_university" name="twelveUniversity" type="text" value="">
+                            <input class="form-control" id="graduation_university" name="graduationUniversity" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_year" class="col-md-2 control-label">Twelve Year
+
+                    <div class="form-group">
+                        <label for="graduation_year" class="col-md-2 control-label">Graduation Year
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="twelve_year" name="twelveYear" type="text" value="">
+                            <input class="form-control" id="graduation_year" name="graduationYear" type="date" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_subject" class="col-md-2 control-label">Twelve Subject
+
+                    <div class="form-group">
+                        <label for="graduation_subject" class="col-md-2 control-label">Graduation Subject
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_subject" name="twelveSubject" type="text" value="">
+                            <input class="form-control" id="graduation_subject" name="graduationSubject" type="text" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="twelve_percentage" class="col-md-2 control-label">Twelve Percentage
+
+                    <div class="form-group">
+                        <label for="graduation_percentage" class="col-md-2 control-label">Graduation Percentage
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_percentage" name="twelvePercentage" type="text" value="0.0">
+                            <input class="form-control" id="graduation_percentage" name="graduationPercentage" type="text" value="0.0">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_university" class="col-md-2 control-label">Graduation University
+
+                    <div class="form-group">
+                        <label for="document_idcard" class="col-md-2 control-label">ID Proof
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_university" name="graduationUniversity" type="text" value="">
+                            <input class="form-control" id="document_idcard" name="document_idcard" type="file">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_year" class="col-md-2 control-label">Graduation Year
+
+                    <div class="form-group">
+                        <label for="tenth_marksheet" class="col-md-2 control-label">Tenth Marksheet
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="graduation_year" name="graduationYear" type="text" value="">
+                            <input class="form-control" id="tenth_marksheet" name="tenth_marksheet" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_subject" class="col-md-2 control-label">Graduation Subject
+
+                    <div class="form-group">
+                        <label for="twelve_marksheet" class="col-md-2 control-label">Twelve Marksheet
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_subject" name="graduationSubject" type="text" value="">
+                            <input class="form-control" id="twelve_marksheet" name="twelve_marksheet" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="graduation_percentage" class="col-md-2 control-label">Graduation Percentage
+
+                    <div class="form-group">
+                        <label for="graduation_document" class="col-md-2 control-label">University Document
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="graduation_percentage" name="graduationPercentage" type="text" value="0.0">
+                            <input class="form-control" id="graduation_document" name="graduation_document" type="file" value="">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="document_idcard" class="col-md-2 control-label">ID Proof
+
+                    <div class="form-group">
+                        <label for="photo" class="col-md-2 control-label">Student Photo
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="document_idcard" name="document_idcard" type="file">
+                            <input class="form-control" id="photo" name="photo" type="file">
 
-
-                            </div>
 
                         </div>
 
+                    </div>
 
 
 
 
 
-
-                        <div class="form-group">
-                            <label for="tenth_marksheet" class="col-md-2 control-label">Tenth Marksheet
-        &nbsp;
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="tenth_marksheet" name="tenth_marksheet" type="file" value="">
-
-
-                            </div>
-
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 submit-row">
+                            <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
                         </div>
+                    </div>
 
 
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="twelve_marksheet" class="col-md-2 control-label">Twelve Marksheet
-        &nbsp;
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="twelve_marksheet" name="twelve_marksheet" type="file" value="">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="graduation_document" class="col-md-2 control-label">University Document
-        &nbsp;
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="graduation_document" name="graduation_document" type="file" value="">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="photo" class="col-md-2 control-label">Student Photo
-        &nbsp;
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="photo" name="photo" type="file">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 submit-row">
-                                <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
-                            </div>
-                        </div>
-
-
-                    </form>
+                </form>
 
 
 
@@ -990,38 +854,38 @@
 
 
 
+    </div>
+    <!-- / Content Wrapper. color white -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Stats tab content -->
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                </a>
+                </li>
+                </ul>
+            </div>
+            <!-- /.tab-pane -->
         </div>
-        <!-- / Content Wrapper. color white -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Stats tab content -->
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    </a>
-                    </li>
-                    </ul>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
-            <div class="pull-right hidden-xs">
-            </div>
-        </footer>
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
+        <div class="pull-right hidden-xs">
+        </div>
+    </footer>
 
 
     </div>
@@ -1083,7 +947,30 @@
     <script src="/admin/static/admin/js/form.js?v=1.0.1"></script>
 
 
-
+    <script>
+        document.getElementById('email').addEventListener('keyup', () => {
+            setTimeout(() => {
+                const email = document.getElementById('email').value;
+                if (email.includes('@')) {
+                    fetch('http://localhost:3000/survey/find/' + email)
+                        .then(data => {
+                            return data.json()
+                        }).then(jsonData => {
+                            document.getElementById('name').value = jsonData.user.name;
+                            document.getElementById('father_name').value = jsonData.user.fatherName;
+                            document.getElementById('date_of_birth').value = jsonData.user.dob;
+                            document.getElementById('address').value = jsonData.user.address;
+                            document.getElementById('dist').value = jsonData.user.district;
+                            document.getElementById('contact_no').value = jsonData.user.contact;
+                            document.getElementById('height').value = jsonData.user.height;
+                            document.getElementById('weight').value = jsonData.user.weight;
+                            document.getElementById(jsonData.user.college).selected = "true";
+                            document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                        })
+                }
+            }, 1000);
+        })
+    </script>
 
 </body>
 

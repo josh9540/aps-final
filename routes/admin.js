@@ -14,6 +14,7 @@ const userRegistrations = require('../modals/User-Registeration');
 const Survey = require('../modals/Survey');
 const User = require('../modals/User');
 const isAuth = require('../middleware/is-auth');
+const isAdmin = require('../middleware/is-admin');
 
 router.get('/', isAuth, adminController.getDashboard);
 router.get('/login', adminController.getLogin);
@@ -38,6 +39,7 @@ router.post('/registeration/create', [body('email').isEmail().withMessage('Pleas
         })
 })], isAuth, registerationController.postRegisterationCreate);
 router.get('/registeration/edit', isAuth, registerationController.getEditRegisteration);
+router.get('/registeration/edit/:_id', isAuth, registerationController.getEditRegisterationId);
 router.post('/registeration/edit', isAuth, registerationController.postEditRegisteration);
 router.post('/registeration/edit/true', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
     return userRegistrations.findOne({ email: value })
@@ -56,29 +58,30 @@ router.post('/registeration/edit/true', [body('email').isEmail().withMessage('Pl
 })], isAuth, registerationController.postEditRegistrationTrue);
 router.get('/registeration/delete/:_id', isAuth, registerationController.deleteRegisteration);
 router.get('/registeration/csv', isAuth, registerationController.getCsv);
+router.post('/registeration/filter', isAuth, registerationController.getFilter);
 
-router.get('/course', isAuth, courseController.getCourses);
-router.get('/course/create', isAuth, courseController.getCoursesCreate);
-router.post('/course/create', [body('courseName', 'Invalid Name').not().isEmpty(), body('coursePrice', 'Invalid Price').not().isEmpty().isNumeric()], isAuth, courseController.postCourseCreate);
-router.get('/course/edit', isAuth, courseController.getEditCourse);
-router.post('/course/edit', isAuth, courseController.postEditCourse);
-router.post('/course/edit/true', [body('courseName', 'Invalid Name').not().isEmpty(), body('coursePrice', 'Invalid Price').not().isEmpty().isNumeric()], isAuth, courseController.postEditCourseTrue);
-router.get('/course/delete/:_id', isAuth, courseController.getDeleteCourse);
-router.get('/course/csv', isAuth, courseController.getCsv);
-
-
-router.get('/college', isAuth, collegeController.getCollege);
-router.get('/college/create', isAuth, collegeController.getCollegeCreate);
-router.post('/college/create', [body('collegeName', 'Invalid Name').trim().not().isEmpty()], isAuth, collegeController.postCollegeCreate);
-router.get('/college/edit', isAuth, collegeController.getEditCollege);
-router.post('/college/edit', isAuth, collegeController.postEditCollege);
-router.post('/college/edit/true', [body('collegeName', 'Invalid Name').not().isEmpty()], isAuth, collegeController.postEditCollegeTrue);
-router.get('/college/delete/:_id', isAuth, collegeController.getDeleteCollege);
-router.get('/college/csv', isAuth, collegeController.getCsv);
+router.get('/course', isAuth, isAdmin, courseController.getCourses);
+router.get('/course/create', isAuth, isAdmin, courseController.getCoursesCreate);
+router.post('/course/create', [body('courseName', 'Invalid Name').not().isEmpty(), body('coursePrice', 'Invalid Price').not().isEmpty().isNumeric()], isAuth, isAdmin, courseController.postCourseCreate);
+router.get('/course/edit', isAuth, isAdmin, courseController.getEditCourse);
+router.post('/course/edit', isAuth, isAdmin, courseController.postEditCourse);
+router.post('/course/edit/true', [body('courseName', 'Invalid Name').not().isEmpty(), body('coursePrice', 'Invalid Price').not().isEmpty().isNumeric()], isAuth, isAdmin, courseController.postEditCourseTrue);
+router.get('/course/delete/:_id', isAuth, isAdmin, courseController.getDeleteCourse);
+router.get('/course/csv', isAuth, isAdmin, courseController.getCsv);
 
 
-router.get('/user', isAuth, userController.getUser);
-router.get('/user/create', isAuth, userController.getUserCreate);
+router.get('/college', isAuth, isAdmin, collegeController.getCollege);
+router.get('/college/create', isAuth, isAdmin, collegeController.getCollegeCreate);
+router.post('/college/create', [body('collegeName', 'Invalid Name').trim().not().isEmpty()], isAuth, isAdmin, collegeController.postCollegeCreate);
+router.get('/college/edit', isAuth, isAdmin, collegeController.getEditCollege);
+router.post('/college/edit', isAuth, isAdmin, collegeController.postEditCollege);
+router.post('/college/edit/true', [body('collegeName', 'Invalid Name').not().isEmpty()], isAuth, isAdmin, collegeController.postEditCollegeTrue);
+router.get('/college/delete/:_id', isAuth, isAdmin, collegeController.getDeleteCollege);
+router.get('/college/csv', isAuth, isAdmin, collegeController.getCsv);
+
+
+router.get('/user', isAuth, isAdmin, userController.getUser);
+router.get('/user/create', isAuth, isAdmin, userController.getUserCreate);
 router.post('/user/create', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
         return User.findOne({ email: value })
             .then(userDoc => {
@@ -91,9 +94,9 @@ router.post('/user/create', [body('email').isEmail().withMessage('Please enter a
     body('lastName', 'Invalid Last Name').not().isEmpty().trim(),
     body('role', 'Invalid role').not().isEmpty(),
     body('password', 'Minimum length for password is 6 and alphanumeric.').isLength({ min: 6 }).isAlphanumeric().trim()
-], isAuth, userController.postUserCreate);
-router.get('/user/edit', isAuth, userController.getEditUser);
-router.post('/user/edit', isAuth, userController.postEditUser);
+], isAuth, isAdmin, userController.postUserCreate);
+router.get('/user/edit', isAuth, isAdmin, userController.getEditUser);
+router.post('/user/edit', isAuth, isAdmin, userController.postEditUser);
 router.post('/user/edit/true', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
         return User.findOne({ email: value })
             .then(userDoc => {
@@ -106,13 +109,13 @@ router.post('/user/edit/true', [body('email').isEmail().withMessage('Please ente
     body('lastName', 'Invalid Last Name').not().isEmpty().trim(),
     body('role', 'Invalid role').not().isEmpty(),
     body('password', 'Minimum length for password is 6 and alphanumeric.').isLength({ min: 6 }).isAlphanumeric().trim()
-], isAuth, userController.postEditUserTrue);
-router.get('/user/delete/:_id', isAuth, userController.getDeleteUser);
-router.get('/user/csv', isAuth, userController.getCsv);
+], isAuth, isAdmin, userController.postEditUserTrue);
+router.get('/user/delete/:_id', isAuth, isAdmin, userController.getDeleteUser);
+router.get('/user/csv', isAuth, isAdmin, userController.getCsv);
 
 
-router.get('/role', isAuth, roleController.getAdmin);
-router.get('/role/employee', isAuth, roleController.getEmployee);
+router.get('/role', isAuth, isAdmin, roleController.getAdmin);
+router.get('/role/employee', isAuth, isAdmin, roleController.getEmployee);
 
 router.get('/survey', isAuth, surveyController.getRegistration);
 router.get('/survey/create', isAuth, surveyController.getSurveyCreate);
@@ -150,6 +153,7 @@ router.post('/survey/edit/true', [body('name', 'Name cannot be empty').not().isE
 }), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty(), body('qualification', 'Qualification cannot be empty').not().isEmpty()], isAuth, surveyController.postEditSurveyTrue);
 router.get('/survey/delete/:_id', isAuth, surveyController.deleteSurvey);
 router.get('/survey/csv', isAuth, surveyController.getCsv);
-
+router.get('/survey/edit/:_id', isAuth, surveyController.getEditRegisterationId);
+router.post('/survey/filter', isAuth, surveyController.getFilter);
 
 exports.routes = router;

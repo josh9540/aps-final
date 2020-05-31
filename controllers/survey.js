@@ -4,14 +4,15 @@ const Survey = require('../modals/Survey');
 const Course = require('../modals/Courses');
 const College = require('../modals/College');
 const fileHelper = require('../util/file');
+const moment = require('moment');
+const jsonexport = require('jsonexport');
 
 exports.getRegistration = async(req, res, next) => {
     try {
-        const page = +req.query.page || 1;
-        let total = await Survey.countDocuments();
-        let totalPages = Math.ceil(total / 10);
-        const users = await Survey.find();
-        res.render('survey', { users, totalPages, page, total });
+        const colleges = await College.find();
+        const courses = await Course.find();
+        const users = await Survey.find().sort({ createdAt: -1 });
+        res.render('survey', { users, colleges, courses });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -68,7 +69,7 @@ exports.postCreateSurvey = async(req, res, next) => {
         } = req.body;
         let studentPhotoUrl;
         if (req.files.photo) {
-            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");;
         }
         const newSurvey = new Survey({
             courses,
@@ -165,7 +166,7 @@ exports.postEditSurveyTrue = async(req, res, next) => {
         let studentPhotoUrl = survey.studentPhotoUrl || " ";
         if (req.files.photo) {
             fileHelper.deleteFile(survey.studentPhotoUrl);
-            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");;
         }
         survey.courses = courses;
         survey.college = college;
@@ -215,7 +216,59 @@ exports.deleteSurvey = async(req, res, next) => {
 exports.getCsv = async(req, res, next) => {
     try {
         const registeration = await Survey.find().select('-_id -__v').lean();
-        const jsonexport = require('jsonexport');
+        return jsonexport(registeration, function(err, csv) {
+            if (err) throw err;
+            res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+            res.set('Content-Type', 'text/csv');
+            return res.status(200).send(csv);
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}
+
+exports.getEditRegisterationId = async(req, res, next) => {
+    try {
+        const user = await Survey.findById(req.params._id);
+        if (!user) {
+            return res.render('edit-reg', { errorMessage: 'Invalid email or contact' });
+        }
+        const courses = await Course.find();
+        const colleges = await College.find();
+        res.render('survey-edit-true', {
+            errorMessage: null,
+            user,
+            courses,
+            colleges
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}
+
+exports.getFilter = async(req, res, next) => {
+    try {
+        let registeration;
+        if (req.body.course) {
+            registeration = await Survey.find({ courses: req.body.course }).select('-_id -__v').select('-_id -__v').lean();
+        } else if (req.body.college) {
+            registeration = await Survey.find({ college: req.body.college }).select('-_id -__v').select('-_id -__v').lean();
+        } else if (req.body.sdate && req.body.edate) {
+            registeration = await Survey.find({
+                createdAt: {
+                    $gte: moment(req.body.sdate).startOf('day').toDate(),
+                    $lte: moment(req.body.edate).endOf('day').toDate()
+                }
+            }).select('-_id -__v').lean();
+        } else {
+            res.redirect('/admin/')
+        }
         return jsonexport(registeration, function(err, csv) {
             if (err) throw err;
             res.setHeader('Content-disposition', 'attachment; filename=data.csv');

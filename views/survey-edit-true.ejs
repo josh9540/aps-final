@@ -119,7 +119,17 @@
 
 
 
-
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
 
 
 
@@ -426,7 +436,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="<%= user.dob %>">
+                                <input class="form-control" id="date_of_birth" name="dob" data-role="datepicker" type="datetime" value="<%= user.dob %>">
 
 
                             </div>

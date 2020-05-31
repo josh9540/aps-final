@@ -6,11 +6,15 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const session = require('express-session');
 const csrf = require('csurf');
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/users');
+const publicRoutes = require('./routes/public');
+const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
 const MONGODB_URI = 'mongodb://localhost:27017/school';
@@ -43,12 +47,30 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+aws.config.update({
+    accessKeyId: 'AKIAJVTFNJLMLNIVQ6UA',
+    secretAccessKey: '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',
+    region: 'ap-south-1'
+});
+
+const s3 = new aws.S3();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
-    multer({ storage: fileStorage, fileFilter: fileFilter }).fields([{ name: 'document_idcard', maxCount: 1 },
+    multer({
+        storage: //multerS3({
+        //     s3: s3,
+        //     bucket: 'ayushkharkia',
+        //     key: function(req, file, cb) {
+        //         cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname))
+        //     }
+        // }),
+            fileStorage,
+        fileFilter: fileFilter
+    }).fields([{ name: 'document_idcard', maxCount: 1 },
         { name: 'tenth_marksheet', maxCount: 1 },
         { name: 'twelve_marksheet', maxCount: 1 },
         { name: 'graduation_document', maxCount: 1 },
@@ -74,6 +96,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/admin', adminRoutes.routes);
+app.use('/mobile', mobileRoutes.routes);
+app.use(publicRoutes.routes);
 app.use(userRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);

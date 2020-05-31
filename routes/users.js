@@ -42,6 +42,7 @@ router.post('/registeration/edit/true', [body('email').isEmail().withMessage('Pl
             }
         })
 })], registerationController.postEditRegistrationTrue);
+router.get('/registeration/find/:email', registerationController.getFind);
 
 router.get('/survey', surveyController.getSurveyCreate);
 router.post('/survey/create', [body('name', 'Name cannot be empty').not().isEmpty(), body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
@@ -77,6 +78,6 @@ router.post('/survey/edit/true', [body('name', 'Name cannot be empty').not().isE
         })
 }), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty(), body('qualification', 'Qualification cannot be empty').not().isEmpty()], surveyController.postEditSurveyTrue);
 router.get('/survey/delete/:_id', surveyController.deleteSurvey);
-
+router.get('/survey/find/:email', surveyController.getFind);
 
 exports.routes = router;

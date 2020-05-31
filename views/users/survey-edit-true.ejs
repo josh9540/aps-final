@@ -121,207 +121,59 @@
 
 
 
-
-
+    <style>
+        .content-wrapper {
+            margin-left: 0;
+        }
+    </style>
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 
 
-
-    <!-- TOP NAVBAR -->
-    <div class="wrapper">
-
-        <header class="main-header">
-            <!-- Logo -->
-
-            <a href="/admin" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img src= "/static/aps-logo.png" height=50 width=50 /></span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>APS Group</b></span>
-            </a>
-
-
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
-                        <li>
+    <div class="content-wrapper">
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="/">Create Registeration</a>
+            </li>
+            <li>
+                <a href="/registeration">Edit Registeration</a>
+            </li>
+            <li>
+                <a href="/survey">Create Survey</a>
+            </li>
+            <li class="active">
+                <a href="/survey/edit">Edit Survey</a>
+            </li>
+        </ul>
+        <% if (errorMessage) { %>
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                <%= errorMessage %>
+            </div>
+            <% } %>
 
 
-                            <!-- User Account: style can be found in dropdown.less -->
-
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user-circle" style="color: white; font-size: 1.4em;"></i>
-                                    <span class="hidden-xs">
-       
-       Student
-       
-   </span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <i class="fa fa-user-circle" style="color: white; font-size: 7em;"></i>
-                                        <p>
-
-                                            Student
-
-                                            <br>
-                                        </p>
-                                        <p>
-                                            user
-                                        </p>
-                                    </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <!-- /.row -->
-                                    </li>
-
-                                </ul>
-                            </li>
-
-
-
-
-                        </li>
-                    </ul>
-
-
-                    <ul class="nav navbar-nav navbar-right">
-
-
-
-
-                    </ul>
-
-
-                </div>
-            </nav>
-        </header>
-        <!-- / TOP NAVBAR -->
-
-        <!-- LEFT MENU -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <i class="fa fa-user-circle" style="color: white; font-size: 2.5em;"></i>
-                    </div>
-                    <div class="pull-left info">
-                        <p>
-                            Student
-
-                        </p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-            </button>
-          </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
-                    <li class="header">MAIN NAVIGATION</li>
-
-
-
-                    <li>
-                        <a href="/">
-
-
-                            <i class="fa fa-book"></i> Registrations
-
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="/survey/">
-
-
-                            <i class="fa fa-book"></i> Survey
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/login">
-
-
-                            <i class="fa fa-book"></i> Admin
-
-                        </a>
-                    </li>
-
-
-                </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-
-        <!-- Content Wrapper. Contains page content color white-->
-        <div class="content-wrapper">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/survey">Create</a>
-                </li>
-                <li class="active">
-                    <a href="/survey/edit">Edit</a>
-                </li>
-            </ul>
-            <% if (errorMessage) { %>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                    <%= errorMessage %>
-                </div>
-                <% } %>
-
-
-                    <form action="/survey/edit/true" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <div class="form-group">
-                            <label for="courses" class="col-md-2 control-label">Course
+                <form action="/survey/edit/true" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="form-group">
+                        <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-role="select2" id="departments" multiple name="courses">
+                            <select class="form-control" data-role="select2" id="departments" multiple name="courses">
                                     <% courses.forEach(c => { %>
                                         <option value="<%= c.courseName %>" 
                                             <% if(user.courses.includes(c.courseName)) { %>
@@ -330,16 +182,16 @@
                                             ><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
                                     <% }) %>
                                 </select>
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="college" class="col-md-2 control-label">College
+                    </div>
+                    <div class="form-group">
+                        <label for="college" class="col-md-2 control-label">College
         &nbsp;
     </label>
-                            <input type="hidden" name="_id" value="<%= user._id %>">
-                            <div class="col-md-10">
+                        <input type="hidden" name="_id" value="<%= user._id %>">
+                        <div class="col-md-10">
 
-                                <select class="form-control" id="college" name="college">
+                            <select class="form-control" id="college" name="college">
                                     <% colleges.forEach(e => { %>
                                         <option value="<%= e.collegeName %>"
                                             <% if(user.college === (e.college)) { %>
@@ -351,81 +203,81 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <label for="name" class="col-md-2 control-label">Name<strong style="color: red">&#42;</strong>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Name<strong style="color: red">&#42;</strong>
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="name" name="name" type="text" value="<%= user.name %>">
+                            <input class="form-control" id="name" name="name" type="text" value="<%= user.name %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="father_name" class="col-md-2 control-label">Father Name
+
+                    </div>
+                    <div class="form-group">
+                        <label for="father_name" class="col-md-2 control-label">Father Name
         
           
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="father_name" name="fatherName" required type="text" value="<%= user.fatherName %>">
+                            <input class="form-control" id="father_name" name="fatherName" required type="text" value="<%= user.fatherName %>">
 
-
-                            </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date-of-birth" class="col-md-2 control-label">Date Of Birth
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="<%= user.dob %>">
+                            <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="<%= user.dob %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Email
+
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-md-2 control-label">Email
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="email" name="email" required type="text" value="<%= user.email %>">
+                            <input class="form-control" id="email" name="email" required type="text" value="<%= user.email %>">
 
-
-                            </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="address" class="col-md-2 control-label">Address
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="col-md-2 control-label">Address
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="address" name="address" type="text" value="<%= user.address %>">
+                            <input class="form-control" id="address" name="address" type="text" value="<%= user.address %>">
 
-
-                            </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="state" class="col-md-2 control-label">State
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state" class="col-md-2 control-label">State
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" id="state" name="state">
+                            <select class="form-control" data-allow-blank="1" id="state" name="state">
                                     <option value="__None" <%= (user.state === "__None")?"selected":"" %>> </option>
                                     <option value="Andhra Pradesh" <%= (user.state === "Andra Pradesh")?"selected":" " %>>Andhra Pradesh</option>
                                     <option value="Arunachal Pradesh" <%= (user.state === "Arunachal Pradesh")?"selected":" " %>>Arunachal Pradesh</option>
@@ -454,79 +306,79 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
 
-                        <div class="form-group">
-                            <label for="dist" class="col-md-2 control-label">District
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dist" class="col-md-2 control-label">District
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="dist" name="district" type="text" value="<%= user.district %>">
+                            <input class="form-control" id="dist" name="district" type="text" value="<%= user.district %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="pincode" class="col-md-2 control-label">Tehsil
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode" class="col-md-2 control-label">Tehsil
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="pincode" name="tehsil" type="text" value="<%= user.tehsil %>">
+                            <input class="form-control" id="pincode" name="tehsil" type="text" value="<%= user.tehsil %>">
 
-
-                            </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="contact_no" class="col-md-2 control-label">Contact No.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_no" class="col-md-2 control-label">Contact No.
         
           <strong style="color: red">&#42;</strong>
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="contact_no" name="contact" required type="text" value="<%= user.contact %>">
+                            <input class="form-control" id="contact_no" name="contact" required type="text" value="<%= user.contact %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="height" class="col-md-2 control-label">Height<strong style="color: red">&#42;</strong>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="height" class="col-md-2 control-label">Height<strong style="color: red">&#42;</strong>
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="height" name="height" type="text" value="<%= user.height %>">
+                            <input class="form-control" id="height" name="height" type="text" value="<%= user.height %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="weight" class="col-md-2 control-label">Weight<strong style="color: red">&#42;</strong>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="weight" class="col-md-2 control-label">Weight<strong style="color: red">&#42;</strong>
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="weight" name="weight" type="text" value="<%= user.weight %>">
+                            <input class="form-control" id="weight" name="weight" type="text" value="<%= user.weight %>">
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="blood_group" class="col-md-2 control-label">Blood Group
+
+                    </div>
+                    <div class="form-group">
+                        <label for="blood_group" class="col-md-2 control-label">Blood Group
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup">
+                            <select class="form-control" data-allow-blank="1" data-role="select2" id="blood_group" name="bloodGroup">
                                     <option value="__None" <%= (user.bloodGroup === "__None")?"selected":" " %>> </option>
                                     <option value="A+" <%= (user.bloodGroup === "A+")?"selected":" " %>>A+</option>
                                     <option value="B+" <%= (user.bloodGroup === "B+")?"selected":" " %>>B+</option>
@@ -539,89 +391,89 @@
                                 </select>
 
 
-                            </div>
-
                         </div>
 
+                    </div>
 
 
 
 
 
-                        <div class="form-group">
-                            <label for="tenth_university" class="col-md-2 control-label">Qualification<strong style="color: red">&#42;</strong>
+
+                    <div class="form-group">
+                        <label for="tenth_university" class="col-md-2 control-label">Qualification<strong style="color: red">&#42;</strong>
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_university" name="qualification" type="text" value="<%= user.qualification %>>" required>
+                            <input class="form-control" id="tenth_university" name="qualification" type="text" value="<%= user.qualification %>>" required>
 
-
-                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label for="tenth_subject" class="col-md-2 control-label">Family Background
+
+                    </div>
+                    <div class="form-group">
+                        <label for="tenth_subject" class="col-md-2 control-label">Family Background
         &nbsp;
     </label>
-                            <div class="col-md-10">
+                        <div class="col-md-10">
 
-                                <input class="form-control" id="tenth_subject" name="familyBackground" type="text" value="<%= user.familyBackground %>">
-                            </div>
+                            <input class="form-control" id="tenth_subject" name="familyBackground" type="text" value="<%= user.familyBackground %>">
                         </div>
-                        <div class="form-group">
-                            <label for="photo" class="col-md-2 control-label">Student Photo
+                    </div>
+                    <div class="form-group">
+                        <label for="photo" class="col-md-2 control-label">Student Photo
         &nbsp;
     </label>
-                            <div class="col-md-10">
-                                <input class="form-control" id="photo" name="photo" type="file">
-                            </div>
+                        <div class="col-md-10">
+                            <input class="form-control" id="photo" name="photo" type="file">
                         </div>
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 submit-row">
-                                <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
-                            </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 submit-row">
+                            <input type="submit" class="btn btn-primary" style="width: 100%;" value="Save" />
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 submit-row">
-                                <a href="/admin/survey/delete/<%= (user._id) %>" class="btn btn-primary btn-danger" style="width: 100%;">Delete</a>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 submit-row">
+                            <a href="/admin/survey/delete/<%= (user._id) %>" class="btn btn-primary btn-danger" style="width: 100%;">Delete</a>
                         </div>
-                        <hr>
-                    </form>
+                    </div>
+                    <hr>
+                </form>
+    </div>
+    <!-- / Content Wrapper. color white -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Stats tab content -->
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                </a>
+                </li>
+                </ul>
+            </div>
+            <!-- /.tab-pane -->
         </div>
-        <!-- / Content Wrapper. color white -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Stats tab content -->
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    </a>
-                    </li>
-                    </ul>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
-            <div class="pull-right hidden-xs">
-            </div>
-        </footer>
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2020 <a>SoftEra Inc.</a></strong> - All rights reserved.
+        <div class="pull-right hidden-xs">
+        </div>
+    </footer>
 
 
     </div>

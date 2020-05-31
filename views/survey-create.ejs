@@ -118,7 +118,16 @@
 
 
 
-
+    <style>
+        @media (min-width: 768px) {
+            .form-horizontal .control-label {
+                padding-top: 7px;
+                margin-bottom: 0;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
 
 
 
@@ -356,6 +365,19 @@
                     <form action="/admin/survey/create" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
+                            <label for="email" class="col-md-2 control-label">Email
+        
+          <strong style="color: red">&#42;</strong>
+    </label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" id="email" name="email" required type="text" value="">
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
                             <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
     </label>
@@ -424,20 +446,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" data-date-format="YYYY-MM-DD" data-role="datepicker" id="date_of_birth" name="dob" type="text" value="2020-05-22">
-
-
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Email
-        
-          <strong style="color: red">&#42;</strong>
-    </label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" id="email" name="email" required type="text" value="">
+                                <input class="form-control" id="date_of_birth" name="dob" type="date" value="">
 
 
                             </div>
@@ -679,7 +688,30 @@
     <script src="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22"></script>
 
     <script src="/admin/static/admin/js/form.js?v=1.0.1"></script>
-
+    <script>
+        document.getElementById('email').addEventListener('keyup', () => {
+            setTimeout(() => {
+                const email = document.getElementById('email').value;
+                if (email.includes('@')) {
+                    fetch('http://localhost:3000/registeration/find/' + email)
+                        .then(data => {
+                            return data.json()
+                        }).then(jsonData => {
+                            document.getElementById('name').value = jsonData.user.name;
+                            document.getElementById('father_name').value = jsonData.user.fatherName;
+                            document.getElementById('date_of_birth').value = jsonData.user.dob;
+                            document.getElementById('address').value = jsonData.user.address;
+                            document.getElementById('dist').value = jsonData.user.district;
+                            document.getElementById('contact_no').value = jsonData.user.contact;
+                            document.getElementById('height').value = jsonData.user.height;
+                            document.getElementById('weight').value = jsonData.user.weight;
+                            document.getElementById(jsonData.user.college).selected = "true";
+                            document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                        })
+                }
+            }, 1000);
+        })
+    </script>
 
 
 

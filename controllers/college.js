@@ -4,11 +4,8 @@ const College = require('../modals/College');
 
 exports.getCollege = async(req, res, next) => {
     try {
-        const page = +req.query.page || 1;
-        let total = await College.countDocuments();
-        let totalPages = Math.ceil(total / 10);
         const colleges = await College.find();
-        res.render('college', { colleges, totalPages, page, total });
+        res.render('college', { colleges });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

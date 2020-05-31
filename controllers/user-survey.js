@@ -196,3 +196,20 @@ exports.deleteSurvey = async(req, res, next) => {
         next(err);
     }
 }
+
+exports.getFind = async(req, res, next) => {
+    const email = req.params.email;
+    try {
+        const user = await Survey.findOne({ email: email });
+        if (user) {
+            res.status(200).json({ user: user });
+        } else {
+            res.status(404).json({ message: "Not found" })
+        }
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

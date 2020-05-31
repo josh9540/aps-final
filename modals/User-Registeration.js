@@ -67,7 +67,7 @@ const userSchema = new Schema({
         type: String
     },
     tenthYear: {
-        type: String
+        type: Date
     },
     tenthSubject: {
         type: String
@@ -79,7 +79,7 @@ const userSchema = new Schema({
         type: String
     },
     twelveYear: {
-        type: String
+        type: Date
     },
     twelveSubject: {
         type: String
@@ -91,7 +91,7 @@ const userSchema = new Schema({
         type: String
     },
     graduationYear: {
-        type: String
+        type: Date
     },
     graduationSubject: {
         type: String
@@ -106,7 +106,7 @@ const userSchema = new Schema({
         type: String
     },
     twelveMarksheetUrl: {
-        typeL: String
+        type: String
     },
     universityDocumentUrl: {
         type: String

@@ -64,7 +64,17 @@
 
 
 
-
+    <style>
+        .dataTables_filter {
+            text-align: right;
+        }
+    </style>
+    <style>
+        tr:hover {
+            cursor: pointer;
+            background-color: aliceblue;
+        }
+    </style>
 
 
 </head>
@@ -285,7 +295,28 @@
                     <a href="/admin/survey/edit">Edit</a>
                 </li>
                 <li>
-                    <a href="/admin/survey/csv">Export</a>
+                    <a href="/admin/survey/csv">Export All</a>
+                </li>
+                <li class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                        Add Filter<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu field-filters">
+
+                        <li>
+                            <a href="javascript:void(0)" class="filter" onclick="course()">Course</a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0)" class="filter" onclick="college()">College</a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0)" class="filter" onclick="date()">Date</a>
+                        </li>
+
+                    </ul>
                 </li>
             </ul>
             <section class="content">
@@ -297,6 +328,34 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body table-responsive">
+                                <form action="/admin/survey/filter" method="POST" class="course" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <label for="course">Course:</label>
+                                    <select name="course" id="course">
+                                        <% courses.forEach(c => { %>
+                                            <option value="<%= c.courseName %>"><%= c.courseName %></option>
+                                       <% }) %>
+                                    </select>
+                                    <button type="submit">Submit</button>
+                                </form>
+                                <form action="/admin/survey/filter" method="POST" class="college" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <label for="college">College:</label>
+                                    <select name="college" id="college">
+                                        <% colleges.forEach(c => { %>
+                                            <option value="<%= c.collegeName %>"><%= c.collegeName %></option>
+                                       <% }) %>
+                                    </select>
+                                    <button type="submit">Submit</button>
+                                </form>
+                                <form action="/admin/survey/filter" method="POST" class="date" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <label for="sdate">Start Date</label>
+                                    <input type="date" name="sdate">
+                                    <label for="edate">End Date</label>
+                                    <input type="date" name="edate">
+                                    <button type="submit">Submit</button>
+                                </form>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -316,7 +375,7 @@
                                             </tr>
                                             <%} else { %>
                                                 <% users.forEach(u => { %>
-                                                    <tr>
+                                                    <tr onclick="clicked('<%= u._id %>')">
                                                         <td>
                                                             <%= u.email %>
                                                         </td>
@@ -328,7 +387,7 @@
                                                         </td>
                                                         <td>
                                                             <% u.courses.forEach(e => { %>
-                                                                <%= e %> ,
+                                                                <%= e %> <br>
                                                                     <% }) %>
                                                         </td>
                                                         <td>
@@ -338,6 +397,7 @@
                                                     <% }) %>
                                     </tbody>
                                 </table>
+                                <button class="buttonexp" style="display: block; margin: auto;">Export</button>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -461,7 +521,9 @@
     <!-- page script -->
     <script type="text/javascript">
         $(function() {
-            $("#example1").dataTable();
+            $("#example1").dataTable({
+                "bSort": false
+            });
             $('#example2').dataTable({
                 "bPaginate": true,
                 "bLengthChange": false,
@@ -510,8 +572,43 @@
         }
         // ]]>
     </script>
+    <script>
+        function clicked(u) {
+            location.replace(`http://localhost:3000/admin/survey/edit/${u}`);
+        }
+    </script>
+    <script>
+        function course() {
+            document.querySelector('.course').style.display = "block";
+            document.querySelector('.college').style.display = "none";
+            document.querySelector('.date').style.display = "none";
+        }
 
+        function college() {
+            document.querySelector('.college').style.display = "block";
+            document.querySelector('.course').style.display = "none";
+            document.querySelector('.date').style.display = "none";
+        }
 
+        function date() {
+            document.querySelector('.college').style.display = "none";
+            document.querySelector('.course').style.display = "none";
+            document.querySelector('.date').style.display = "block";
+        }
+    </script>
+    <script src="/table/src/jquery.table2excel.js"></script>
+    <script>
+        $(".buttonexp").click(function() {
+            console.log('pppp')
+            $("#example1").table2excel({
+                // exclude CSS class
+                exclude: ".noExl",
+                name: "Data",
+                filename: "Data", //do not include extension
+                fileext: ".xls" // file extension
+            });
+        });
+    </script>
 </body>
 
 </html>
