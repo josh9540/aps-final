@@ -17,7 +17,7 @@ const publicRoutes = require('./routes/public');
 const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb://localhost:27017/school';
+const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/school?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true';
 
 const app = express();
 const store = new MongoDBStore({
