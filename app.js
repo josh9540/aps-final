@@ -17,7 +17,7 @@ const publicRoutes = require('./routes/public');
 const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/test?retryWrites=true&w=majority';
+const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/school?retryWrites=true&w=majority';
 
 const app = express();
 const store = new MongoDBStore({
@@ -95,9 +95,9 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(publicRoutes.routes);
 app.use('/admin', adminRoutes.routes);
 app.use('/mobile', mobileRoutes.routes);
-app.use(publicRoutes.routes);
 // app.use(userRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);
