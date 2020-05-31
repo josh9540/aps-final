@@ -17,7 +17,7 @@ const publicRoutes = require('./routes/public');
 const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/school?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true';
+const MONGODB_URI = 'mongodb+srv://ayush:donate123@cluster0-mhayo.mongodb.net/test?retryWrites=true&w=majority';
 
 const app = express();
 const store = new MongoDBStore({
@@ -47,13 +47,13 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-aws.config.update({
-    accessKeyId: 'AKIAJVTFNJLMLNIVQ6UA',
-    secretAccessKey: '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',
-    region: 'ap-south-1'
-});
+// aws.config.update({
+//     accessKeyId: 'AKIAJVTFNJLMLNIVQ6UA',
+//     secretAccessKey: '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',
+//     region: 'ap-south-1'
+// });
 
-const s3 = new aws.S3();
+// const s3 = new aws.S3();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -98,7 +98,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes.routes);
 app.use('/mobile', mobileRoutes.routes);
 app.use(publicRoutes.routes);
-app.use(userRoutes.routes);
+// app.use(userRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);
 
