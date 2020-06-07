@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const session = require('express-session');
-const csrf = require('csurf');
-const aws = require('aws-sdk');
-const multerS3 = require('multer-s3');
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -24,7 +21,6 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions'
 });
-const csrfProtection = csrf();
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -48,23 +44,9 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-// aws.config.update({
-//     accessKeyId: 'AKIAJVTFNJLMLNIVQ6UA',
-//     secretAccessKey: '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',
-//     region: 'ap-south-1'
-// });
-
-// const s3 = new aws.S3();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-//multerS3({
-//     s3: s3,
-//     bucket: 'ayushkharkia',
-//     key: function(req, file, cb) {
-//         cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname))
-//     }
-// }),
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -90,12 +72,7 @@ app.use(
         store: store
     })
 );
-app.use(csrfProtection);
 
-app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
 
 app.use(publicRoutes.routes);
 app.use('/admin', adminRoutes.routes);
