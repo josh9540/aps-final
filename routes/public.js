@@ -1,10 +1,24 @@
+const path = require('path');
+const ejs = require('ejs');
 const express = require('express');
+const { body } = require('express-validator');
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'testapsgroup@gmail.com',
+        pass: 'aps@1234'
+    }
+});
+
 const router = express.Router();
+
+const userRegistrations = require('../modals/User-Registeration');
+const registerationController = require('../controllers/user-registeration')
 
 router.get('/', (req, res) => {
     res.render('public/index');
 });
-
 router.get('/about', (req, res) => {
     res.render('public/about');
 });
@@ -93,10 +107,6 @@ router.get('/privacy_policy', (req, res) => {
     res.render('public/privacy_policy');
 });
 
-router.get('/registration-form', (req, res) => {
-    res.render('public/registration-form');
-});
-
 router.get('/soft_skills', (req, res) => {
     res.render('public/soft_skills');
 });
@@ -119,6 +129,47 @@ router.get('/vision-mission', (req, res) => {
 
 router.get('/why_arrow', (req, res) => {
     res.render('public/why_arrow');
+});
+
+
+router.get('/registration-form', registerationController.getRegistrationCreate);
+
+router.post('/registeration/create', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
+    return userRegistrations.findOne({ email: value })
+        .then(userDoc => {
+            if (userDoc) {
+                return Promise.reject('Email already exists');
+            }
+        })
+}).normalizeEmail(), body('contact', "Phone number should be 10 digits.").isNumeric().isLength({ min: 10, max: 10 }).custom((value, { req }) => {
+    return userRegistrations.findOne({ contact: value })
+        .then(userDoc => {
+            if (userDoc) {
+                return Promise.reject('Contact no already exists');
+            }
+        })
+})], registerationController.postRegisterationCreate);
+
+router.post('/contact', (req, res, next) => {
+    const { name, email, phone, message } = req.body;
+    ejs.renderFile(path.join(path.dirname(process.mainModule.filename), 'views', 'email', 'query.ejs'), { name, email, phone, message }, function(err, data) {
+        if (err) {
+            throw new Error(err);
+        } else {
+            const mainOptions = {
+                from: 'testapsgroup@gmail.com',
+                to: 'sumitc210@gmail.com',
+                subject: 'New Query From' + name,
+                html: data
+            };
+            transporter.sendMail(mainOptions, function(err, info) {
+                if (err) {
+                    throw new Error(err);
+                }
+            });
+        }
+    });
+    res.redirect('/contact')
 });
 
 exports.routes = router;

@@ -174,3 +174,7 @@ exports.getLogout = (req, res, next) => {
         res.redirect('/admin/login');
     });
 };
+
+exports.sendEmail = (req,res,next) => {
+    const {emailto,subject,msg} = req.body;
+}

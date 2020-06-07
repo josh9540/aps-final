@@ -201,7 +201,9 @@ exports.deleteSurvey = async(req, res, next) => {
         if (_id) {
             const survey = await Survey.findById(_id);
             console.log(survey);
-            fileHelper.deleteFile(survey.studentPhotoUrl);
+            if (survey.studentPhotoUrl) {
+                fileHelper.deleteFile(survey.studentPhotoUrl);
+            }
             await survey.remove();
             res.redirect('/admin/survey');
         }
@@ -269,12 +271,15 @@ exports.getFilter = async(req, res, next) => {
         } else {
             res.redirect('/admin/')
         }
-        return jsonexport(registeration, function(err, csv) {
-            if (err) throw err;
-            res.setHeader('Content-disposition', 'attachment; filename=data.csv');
-            res.set('Content-Type', 'text/csv');
-            return res.status(200).send(csv);
-        });
+        const courses = await Course.find();
+        const colleges = await College.find();
+        res.render('list', { users: registeration, courses, colleges });
+        // return jsonexport(registeration, function(err, csv) {
+        //     if (err) throw err;
+        //     res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+        //     res.set('Content-Type', 'text/csv');
+        //     return res.status(200).send(csv);
+        // });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

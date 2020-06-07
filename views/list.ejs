@@ -364,6 +364,8 @@
                                             <th>Contact No.</th>
                                             <th>Courses</th>
                                             <th>College</th>
+                                            <th>Date of Birth</th>
+                                            <th>Address</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -395,6 +397,11 @@
                                                         <td>
                                                             <%= u.college %>
                                                         </td>
+                                                        <td><% if(u.dob){ %>
+                                                            <%= u.dob.toString().substring(4,15) %>
+                                                            <% } %>
+                                                        </td>
+                                                        <td><%= u.address %></td>
                                                     </tr>
                                                 </span>
                                                     <% }) %>

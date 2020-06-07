@@ -9,10 +9,10 @@ exports.getRegistrationCreate = async(req, res, next) => {
     try {
         const courses = await Course.find();
         const colleges = await College.find();
-        res.render('users/registerationform', {
+        res.render('public/registration-form', {
             errorMessage: null,
-            courses,
-            colleges
+            courses: courses,
+            colleges: colleges
         });
     } catch (err) {
         if (!err.statusCode) {
@@ -24,15 +24,19 @@ exports.getRegistrationCreate = async(req, res, next) => {
 
 exports.postRegisterationCreate = async(req, res, next) => {
     const errors = validationResult(req);
+    const courses = await Course.find();
+    const colleges = await College.find();
     if (!errors.isEmpty()) {
-        return res.status(422).render('users/registerationform', {
-            errorMessage: errors.array()[0].msg
+        return res.status(422).render('public/registration-form', {
+            errorMessage: errors.array()[0].msg,
+            courses: courses,
+            colleges: colleges
         });
     }
     try {
-        let courses = req.body.courses;
-        if (!Array.isArray(courses)) {
-            courses = [courses]
+        let courses1 = req.body.courses;
+        if (!Array.isArray(courses1)) {
+            courses1 = [courses1]
         }
         const {
             college,
@@ -69,7 +73,6 @@ exports.postRegisterationCreate = async(req, res, next) => {
             twelveMarksheetUrl,
             universityDocumentUrl,
             studentPhotoUrl;
-
         if (req.files.document_idcard) {
             idProofUrl = req.files.document_idcard[0].path.replace("\\", "/");
         }
@@ -78,7 +81,6 @@ exports.postRegisterationCreate = async(req, res, next) => {
         }
         if (req.files.twelve_marksheet) {
             twelveMarksheetUrl = req.files.twelve_marksheet[0].path.replace("\\", "/");
-            console.log(twelveMarksheetUrl);
         }
         if (req.files.graduation_document) {
             universityDocumentUrl = req.files.graduation_document[0].path.replace("\\", "/");
@@ -87,7 +89,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
         }
         const newUser = new UserRegistration({
-            courses,
+            courses:courses1,
             college,
             name,
             fatherName,
@@ -123,7 +125,11 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl
         });
         const user = await newUser.save();
-        res.redirect('/');
+        res.render('public/registration-form', {
+            errorMessage: 'Registeration Successful',
+            courses: courses,
+            colleges: colleges
+        });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

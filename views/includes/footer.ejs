@@ -39,8 +39,9 @@
                         </div>
                     </div>
                     <h4 class="text-3 font-weight-semibold mb-0 text-muted">SEND US A MESSAGE</h4>
-                    <form id="contactForm" class="contact-form" action="php/contact-form.php" method="POST" novalidate="novalidate">
+                    <form id="contactForm" class="contact-form" action="/contact" method="POST">
                         <input type="hidden" value="Contact Form" name="subject" id="subject">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="contact-form-success alert alert-success d-none" id="contactSuccess">
                             Message has been sent to us.
                         </div>
@@ -51,10 +52,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-6 pr-lg-2">
-                                <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control py-2" placeholder="Your Name..." name="name" id="name" required="">
+                                <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control py-2" placeholder="Your Name..." name="name" id="name" required>
                             </div>
                             <div class="form-group col-lg-6 pl-lg-2">
-                                <input type="text" value="" data-msg-required="Please enter your phone." maxlength="100" class="form-control py-2" placeholder="Your Phone..." name="phone" id="phone" required="">
+                                <input type="text" value="" data-msg-required="Please enter your phone." maxlength="100" class="form-control py-2" placeholder="Your Phone..." name="phone" id="phone" required>
                             </div>
                         </div>
                         <div class="form-group">

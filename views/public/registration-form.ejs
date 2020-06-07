@@ -53,30 +53,195 @@
                     <h1 class="text-center font-weight-bold appear-animation" data-appear-animation="fadeInUpShorter">Registration</h1>
                     <div class="row appear-animation" data-appear-animation="fadeInUpShorter">
                         <div class="col-md-8" style="max-width: 800px;  margin: 0 auto;">
-                            <form class="registration">
+                            <div style="color: red;">
+                                <h2>
+                                    <%= errorMessage %>
+                                </h2>
+                            </div>
+                            <form class="registration" action="/registeration/create" method="POST" enctype="multipart/form-data">
                                 <div class="mb20">
-                                    <label>Student Name</label>
-                                    <input type="text" placeholder="Name" class="form-control" />
+                                    <label for="email">Email<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">
                                 </div>
                                 <div class="mb20">
-                                    <label>Email</label>
-                                    <input type="text" placeholder="Enter your email address" class="form-control" />
+                                    <label for="departments">Select Course</label>
+                                    <select class="form-control" id="departments" multiple name="courses">
+                                        <% courses.forEach(c => { %>
+                                            <option value="<%= c.courseName %>" id="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
+                                        <% }) %>
+                                </select>
                                 </div>
                                 <div class="mb20">
-                                    <label>Select Course</label>
-                                    <select class="form-control">
-													<option>Select Course</option>
-													<option>NDA</option>
-													<option>SSB/Interviews</option>
-													<option>CPO</option>
-													<option>AFCAT</option>
-													<option>CDS/OTA</option>
-													<option>Delhi Police/State Police</option>
-												</select>
+                                    <label for="college">Select College</label>
+                                    <select class="form-control" id="college" name="college">
+                                        <option value="none">Select College</option>
+                                        <% colleges.forEach(e => { %>
+                                            <option value="<%= e.collegeName %>" id="<%= e.collegeName %>"><%= e.collegeName %></option>
+                                        <% }) %>
+                                </select>
                                 </div>
                                 <div class="mb20">
-                                    <label>Upload Documents</label>
-                                    <input type="file" />
+                                    <label for="name">Student Name<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input class="form-control" id="name" name="name" type="text" value="" placeholder="Student Name" required>
+                                </div>
+                                <div class="mb20">
+                                    <label for="fatherName">Father Name<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input class="form-control" id="fatherName" name="fatherName" required type="text" placeholder="Father Name" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="fatherOccupation">Father Occupation<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input type="text" placeholder="Occupation" value="" class="form-control" name="fatherOccupation" id="fatherOccupation" required>
+                                </div>
+                                <div class="mb20">
+                                    <label for="dob">Date Of Birth</label>
+                                    <input type="date" name="dob" value="" placeholder="Date of Birth" id="dob" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="category">Category</label>
+                                    <select name="category" id="category" class="form-control">
+                                        <option value="__None">Select Category</option>
+                                        <option value="GEN">GENERAL</option>
+                                        <option value="OBC">OBC</option>
+                                        <option value="ST">ST</option>
+                                        <option value="SC">SC</option>
+                                    </select>
+                                </div>
+                                <div class="mb20">
+                                    <label for="address">Address</label>
+                                    <input type="text" name="address" value="" id="address" placeholder="Address" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="state">State</label>
+                                    <select name="state" id="state" class="form-control">
+                                            <option value="__None">Select State</option>
+                                            option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option>
+                                        </select>
+                                </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <div class="mb20">
+                                    <label for="district">District</label>
+                                    <input type="text" name="district" value="" id="district" class="form-control" placeholder="District">
+                                </div>
+                                <div class="mb20">
+                                    <label for="pincode">Pincode</label>
+                                    <input type="number" name="pincode" value="" id="pincode" placeholder="Pincode" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="contact">Contact Number<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input type="tel" name="contact" value="" id="contact" placeholder="Contact Number" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="maritalStatus">Marital Status</label>
+                                    <select name="maritalStatus" id="maritalStatus" class="form-control">
+                                        <option value="__None">Select Marital Status</option>
+                                        <option value="Unmarried">Unmarried</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb20">
+                                    <label for="height">Height(in cm)</label>
+                                    <input type="number" name="height" placeholder="Height in cm" id="height" value="0.0" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="height">Weight(in kg)</label>
+                                    <input type="number" name="weight" placeholder="Weight in kg" id="height" value="0.0" class="form-control">
+                                </div>
+                                <div class="mb20">
+                                    <label for="paid">Paid</label>
+                                    <select class="form-control" name="paid" id="paid">
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid" selected>Unpaid</option>
+                                    </select>
+                                </div>
+                                <div class="mb20">
+                                    <label for="bloodGroup">Blood Grpup</label>
+                                    <select name="bloodGroup" id="bloodGroup" class="form-control">
+                                        <option value="__None">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="B+">B+</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="O+">O+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="mb20">
+                                    <label for="tenthUniversity">Tenth University</label>
+                                    <input type="text" name="tenthUniversity" id="tenthUniversity" placeholder="Tenth University" class="form-control" value=" ">
+                                </div>
+                                <div class="mb20">
+                                    <label for="tenthYear">Tenth year</label>
+                                    <input class="form-control" id="tenthYear" placeholder="Tenth Year" name="tenthYear" type="date" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="tenth_subject">Tenth Subject</label>
+                                    <input class="form-control" id="tenth_subject" placeholder="Tenth Subjects" name="tenthSubject" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="tenth_percentage">Tenth Percentage</label>
+                                    <input class="form-control" id="tenth_percentage" placeholder="Tenth Percentage" name="tenthPercentage" type="number" value="0.0">
+                                </div>
+                                <div class="mb20">
+                                    <label for="twelve_university">Twelve University</label>
+                                    <input class="form-control" id="twelve_university" placeholder="Twele University" name="twelveUniversity" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="twelve_year">Twelve Year</label>
+                                    <input class="form-control" id="twelve_year" placeholder="Twelve Year" name="twelveYear" type="date" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="twelve_subject">Twelve Subject</label>
+                                    <input class="form-control" id="twelve_year" placeholder="Twelve Subject" name="twelveSubject" type="name" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="twelve_percentage">Twelve Percentage</label>
+                                    <input class="form-control" id="twelve_percentage" name="twelvePercentage" placeholder="Twelve Percentage" type="number" value="0.0">
+                                </div>
+                                <div class="mb20">
+                                    <label for="graduation_university">Graduation University</label>
+                                    <input class="form-control" id="graduation_university" placeholder="Graduation University" name="graduationUniversity" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="graduation_year">Graduation Year</label>
+                                    <input class="form-control" id="graduation_year" placeholder="Graduation Year" name="graduationYear" type="date" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="graduation_subject">Graduation Subject</label>
+                                    <input class="form-control" id="graduation_subject" name="graduationSubject" placeholder="Graduation Subject" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="graduation_percentage">Graduation Percentage</label>
+                                    <input class="form-control" id="graduation_percentage" name="graduationPercentage" placeholder="Grafuation Percentage" type="number" value="0.0">
+                                </div>
+                                <div class="mb20">
+                                    <label for="document_idcard">ID Proof</label>
+                                    <input type="file" name="document_idcard" id="document_idcard" />
+                                </div>
+                                <div class="mb20">
+                                    <label for="tenth_marksheet">Tenth Marksheet</label>
+                                    <input type="file" id="tenth_marksheet" name="tenth_marksheet" />
+                                </div>
+                                <div class="mb20">
+                                    <label id="twelve_marksheet">Twelve Marksheet</label>
+                                    <input type="file" id="twelve_marksheet" name="twelve_marksheet" />
+                                </div>
+                                <div class="mb20">
+                                    <label id="graduation_document">University Document</label>
+                                    <input type="file" id="graduation_document" name="graduation_document" />
+                                </div>
+                                <div class="mb20">
+                                    <label id="photo">Student Photo</label>
+                                    <input type="file" id="photo" name="photo" />
                                 </div>
                                 <div class="mb20 text-right">
                                     <button class="btn btn-primary">Submit</button>
@@ -98,7 +263,30 @@
                     $('#navCourses').addClass(' active');
                 });
             </script>
-
+            <script>
+                document.getElementById('email').addEventListener('keyup', () => {
+                    setTimeout(() => {
+                        const email = document.getElementById('email').value;
+                        if (email.includes('@')) {
+                            fetch('http://localhost:3000/survey/find/' + email)
+                                .then(data => {
+                                    return data.json()
+                                }).then(jsonData => {
+                                    document.getElementById('name').value = jsonData.user.name;
+                                    document.getElementById('fatherName').value = jsonData.user.fatherName;
+                                    document.getElementById('dob').value = jsonData.user.dob;
+                                    document.getElementById('address').value = jsonData.user.address;
+                                    document.getElementById('district').value = jsonData.user.district;
+                                    document.getElementById('contact').value = jsonData.user.contact;
+                                    document.getElementById('height').value = jsonData.user.height;
+                                    document.getElementById('weight').value = jsonData.user.weight;
+                                    document.getElementById(jsonData.user.college).selected = "true";
+                                    document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                                })
+                        }
+                    }, 1000);
+                })
+            </script>
 </body>
 
 </html>

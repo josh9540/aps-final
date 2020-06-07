@@ -302,11 +302,22 @@ exports.deleteRegisteration = async(req, res, next) => {
         const _id = req.params._id;
         if (_id) {
             const user = await UserRegistration.findById(_id);
-            fileHelper.deleteFile(user.idProofUrl);
-            fileHelper.deleteFile(user.studentPhotoUrlUrl);
-            fileHelper.deleteFile(user.tenthMarksheetUrl);
-            fileHelper.deleteFile(user.twelveMarksheetUrl);
-            fileHelper.deleteFile(user.universityDocumentUrl);
+            console.log(user)
+            if (user.idProofUrl) {
+                fileHelper.deleteFile(user.idProofUrl);
+            }
+            if (user.studentPhotoUrl) {
+                fileHelper.deleteFile(user.studentPhotoUrl);
+            }
+            if (user.tenthMarksheetUrl) {
+                fileHelper.deleteFile(user.tenthMarksheetUrl);
+            }
+            if (user.twelveMarksheetUrl) {
+                fileHelper.deleteFile(user.twelveMarksheetUrl);
+            }
+            if (user.universityDocumentUrl ) {
+                fileHelper.deleteFile(user.universityDocumentUrl);
+            }
             await user.remove();
             res.redirect('/admin/registeration');
         }
@@ -377,12 +388,12 @@ exports.getFilter = async(req, res, next) => {
         const courses = await Course.find();
         const colleges = await College.find();
         res.render('list', { users: registeration, courses, colleges });
-        jsonexport(registeration, function(err, csv) {
-            if (err) throw err;
-            res.setHeader('Content-disposition', 'attachment; filename=data.csv');
-            res.set('Content-Type', 'text/csv');
-            return res.status(200).send(csv);
-        });
+        // `jsonexport(registeration, function(err, csv) {
+        //     if (err) throw err;
+        //     res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+        //     res.set('Content-Type', 'text/csv');
+        //     return res.status(200).send(csv);
+        // });`
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
