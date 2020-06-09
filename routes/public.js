@@ -17,7 +17,7 @@ const userRegistrations = require('../modals/User-Registeration');
 const registerationController = require('../controllers/user-registeration')
 
 router.get('/', (req, res) => {
-    res.render('public/index');
+    res.render('index');
 });
 router.get('/about', (req, res) => {
     res.render('public/about');

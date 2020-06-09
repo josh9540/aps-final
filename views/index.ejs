@@ -15,7 +15,7 @@
     <meta name="description" content="Porto - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
 
-    <%- include('../includes/head.ejs') %>
+    <%- include('./includes/head.ejs') %>
 </head>
 
 <body class="loading-overlay-showing" data-plugin-page-transition data-loading-overlay data-plugin-options="{'hideDelay': 500}">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="body">
-        <%- include('../includes/header.ejs') %>
+        <%- include('./includes/header.ejs') %>
 
             <div role="main" class="main">
 
@@ -94,7 +94,7 @@
                     <div class="container py-5">
                         <h1 class="text-center font-weight-bold appear-animation" data-appear-animation="fadeInUpShorter">Our Courses</h1>
                         <div class="row appear-animation" data-appear-animation="fadeInUpShorter">
-                            <%- include('../includes/indexcourses.ejs') %>
+                            <%- include('./includes/indexcourses.ejs') %>
                         </div>
                     </div>
                 </section>
@@ -135,7 +135,7 @@
                     <div class="row">
                         <div class="col">
                             <h1 class="text-center font-weight-bold">Photo Gallery</h1>
-                            <%- include('../includes/gallery.ejs') %>
+                            <%- include('./includes/gallery.ejs') %>
                         </div>
                     </div>
                 </div>
@@ -147,12 +147,12 @@
 
 
             </div>
-            <%- include('../includes/footer_bottom.ejs') %>
+            <%- include('./includes/footer_bottom.ejs') %>
     </div>
 
     <!-- Vendor -->
 
-    <%- include('../includes/scripts.ejs') %>
+    <%- include('./includes/scripts.ejs') %>
         <script>
             $(document).ready(function() {
                 $('#navHome').addClass(' active');

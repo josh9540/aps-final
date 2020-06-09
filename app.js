@@ -77,7 +77,7 @@ app.use(
 app.use(publicRoutes.routes);
 app.use('/admin', adminRoutes.routes);
 app.use('/mobile', mobileRoutes.routes);
-app.use(userRoutes.routes);
+app.use('/', userRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);
 
