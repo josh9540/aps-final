@@ -44,23 +44,23 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJKhD7VgGErqOrdvzzP_YmqOor9LhVZ3g"></script>
 <script>
     /*
-    			Map Settings
+                                    			Map Settings
 
-    				Find the Latitude and Longitude of your address:
-    					- http://universimmedia.pagesperso-orange.fr/geo/loc.htm
-    					- http://www.findlatitudeandlongitude.com/find-address-from-latitude-and-longitude/
+                                    				Find the Latitude and Longitude of your address:
+                                    					- http://universimmedia.pagesperso-orange.fr/geo/loc.htm
+                                    					- http://www.findlatitudeandlongitude.com/find-address-from-latitude-and-longitude/
 
-    			*/
+                                    			*/
 
     // Map Markers
     var mapMarkers = [{
-        address: "<?= $address ?>",
-        html: "<center><strong><?= $title ?></strong><br><?= $address ?></center><br><br><a href='#' onclick='mapCenterAt({latitude: 28.9873942, longitude: 77.6289204, zoom: 16}, event)'>[+] zoom here</a>",
-        icon: {
-            image: "img/pin.png",
-            iconsize: [26, 46],
-            iconanchor: [12, 46]
-        }
+        address: "Khiwai, Rohta Road, Meerut (UP)",
+        html: "<center><strong>Arrow Achievers</strong><br>Khiwai, Rohta Road, Meerut (UP)</center><br><br><a href='#' onclick='mapCenterAt({latitude: 28.9873942, longitude: 77.6289204, zoom: 16}, event)'>[+] zoom here</a>",
+        // icon: {
+        //     image: "/public/img/logo.png",
+        //     iconsize: [26, 46],
+        //     iconanchor: [12, 46]
+        // }
     }];
 
     // Map Initial Location
