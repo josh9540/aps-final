@@ -15,9 +15,10 @@ const Survey = require('../modals/Survey');
 const User = require('../modals/User');
 const isAuth = require('../middleware/is-auth');
 const isAdmin = require('../middleware/is-admin');
+const isUser = require('../middleware/is-User');
 
 router.get('/', isAuth, adminController.getDashboard);
-router.get('/login', adminController.getLogin);
+router.get('/login', isUser, adminController.getLogin);
 router.post('/login', adminController.postLogin);
 router.get('/logout', isAuth, adminController.getLogout);
 
