@@ -158,10 +158,4 @@ router.get('/survey/edit/:_id', isAuth, surveyController.getEditRegisterationId)
 router.post('/survey/filter', isAuth, surveyController.getFilter);
 router.post('/email', isAuth, adminController.sendEmail);
 
-router.get('/test/create', (req, res, next) => {
-    res.render('test', { errorMessage: null });
-})
-
-router.post('/test/create', userController.postUserCreate);
-
 exports.routes = router;
