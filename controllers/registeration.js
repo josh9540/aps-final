@@ -302,7 +302,6 @@ exports.deleteRegisteration = async(req, res, next) => {
         const _id = req.params._id;
         if (_id) {
             const user = await UserRegistration.findById(_id);
-            console.log(user)
             if (user.idProofUrl) {
                 fileHelper.deleteFile(user.idProofUrl);
             }
@@ -315,7 +314,7 @@ exports.deleteRegisteration = async(req, res, next) => {
             if (user.twelveMarksheetUrl) {
                 fileHelper.deleteFile(user.twelveMarksheetUrl);
             }
-            if (user.universityDocumentUrl ) {
+            if (user.universityDocumentUrl) {
                 fileHelper.deleteFile(user.universityDocumentUrl);
             }
             await user.remove();

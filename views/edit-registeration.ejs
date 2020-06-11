@@ -981,7 +981,9 @@
                             <div class="col-md-10">
 
                                 <input class="form-control" id="document_idcard" name="document_idcard" type="file">
-
+                                <% if(user.idProofUrl && user.idProofUrl !== ' ' ) { %>
+                                    <a href="/<%= user.idProofUrl %>">View</a>
+                                    <% } %>
 
                             </div>
 
@@ -1000,7 +1002,9 @@
                             <div class="col-md-10">
 
                                 <input class="form-control" id="tenth_marksheet" name="tenth_marksheet" type="file" value="">
-
+                                <% if(user.tenthMarksheetUrl && user.tenthMarksheetUrl !== ' ') { %>
+                                    <a href="/<%= user.tenthMarksheetUrl %>">View</a>
+                                    <% } %>
 
                             </div>
 
@@ -1019,7 +1023,9 @@
                             <div class="col-md-10">
 
                                 <input class="form-control" id="twelve_marksheet" name="twelve_marksheet" type="file" value="">
-
+                                <% if(user.twelveMarksheetUrl && user.twelveMarksheetUrl !== ' ' ) { %>
+                                    <a href="/<%= user.twelveMarksheetUrl %>">View</a>
+                                    <% } %>
 
                             </div>
 
@@ -1038,7 +1044,9 @@
                             <div class="col-md-10">
 
                                 <input class="form-control" id="graduation_document" name="graduation_document" type="file" value="">
-
+                                <% if(user.universityDocumentUrl && user.universityDocumentUrl !== ' ' ) { %>
+                                    <a href="/<%= user.universityDocumentUrl %>">View</a>
+                                    <% } %>
 
                             </div>
 
@@ -1057,7 +1065,9 @@
                             <div class="col-md-10">
 
                                 <input class="form-control" id="photo" name="photo" type="file">
-
+                                <% if(user.studentPhotoUrl && user.studentPhotoUrl !== ' ') { %>
+                                    <a href="/<%= user.studentPhotoUrl %>">View</a>
+                                    <% } %>
 
                             </div>
 

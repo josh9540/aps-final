@@ -364,7 +364,7 @@
 
 
                     <form action="/admin/college/edit" method="POST" class="admin-form form-horizontal">
-
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
                             <label for="category" class="col-md-2 control-label">Colleges: 
         &nbsp;&nbsp;

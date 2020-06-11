@@ -625,6 +625,9 @@
     </label>
                             <div class="col-md-10">
                                 <input class="form-control" id="photo" name="photo" type="file">
+                                <% if(user.studentPhotoUrl && user.studentPhotoUrl !== ' ' ) { %>
+                                    <a href="/<%= user.studentPhotoUrl %>">View</a>
+                                    <% } %>
                             </div>
                         </div>
                         <hr>

@@ -1,10 +1,17 @@
+require('dotenv/config');
 const path = require('path');
+const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const session = require('express-session');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const csrf = require('csurf');
+const csrfProtection = csrf();
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -14,7 +21,7 @@ const publicRoutes = require('./routes/public');
 const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb://localhost:27017/school';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const app = express();
 const store = new MongoDBStore({
@@ -24,7 +31,6 @@ const store = new MongoDBStore({
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        console.log(req)
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
@@ -47,6 +53,12 @@ const fileFilter = (req, file, cb) => {
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -74,9 +86,14 @@ app.use(
 );
 
 
+app.use('/mobile', mobileRoutes.routes);
+app.use(csrfProtection);
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 app.use(publicRoutes.routes);
 app.use('/admin', adminRoutes.routes);
-app.use('/mobile', mobileRoutes.routes);
 app.use('/', userRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);

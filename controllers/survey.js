@@ -200,7 +200,6 @@ exports.deleteSurvey = async(req, res, next) => {
         const _id = req.params._id;
         if (_id) {
             const survey = await Survey.findById(_id);
-            console.log(survey);
             if (survey.studentPhotoUrl) {
                 fileHelper.deleteFile(survey.studentPhotoUrl);
             }

@@ -329,6 +329,7 @@
                             <!-- /.box-header -->
                             <div class="box-body table-responsive">
                                 <form action="/admin/survey/filter" method="POST" class="course" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <label for="course">Course:</label>
                                     <select name="course" id="course">
                                         <% courses.forEach(c => { %>
@@ -338,6 +339,7 @@
                                     <button type="submit">Submit</button>
                                 </form>
                                 <form action="/admin/survey/filter" method="POST" class="college" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <label for="college">College:</label>
                                     <select name="college" id="college">
                                         <% colleges.forEach(c => { %>
@@ -347,6 +349,7 @@
                                     <button type="submit">Submit</button>
                                 </form>
                                 <form action="/admin/survey/filter" method="POST" class="date" style="display: none;">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <label for="sdate">Start Date</label>
                                     <input type="date" name="sdate">
                                     <label for="edate">End Date</label>

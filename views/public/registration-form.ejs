@@ -59,6 +59,7 @@
                                 </h2>
                             </div>
                             <form class="registration" action="/registeration/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="mb20">
                                     <label for="email">Email<sup style="color: red; text-decoration: bold;">*</sup></label>
                                     <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">

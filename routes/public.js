@@ -1,3 +1,4 @@
+require('dotenv/config');
 const path = require('path');
 const ejs = require('ejs');
 const express = require('express');
@@ -6,8 +7,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'testapsgroup@gmail.com',
-        pass: 'aps@1234'
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
     }
 });
 
@@ -157,8 +158,8 @@ router.post('/contact', (req, res, next) => {
             throw new Error(err);
         } else {
             const mainOptions = {
-                from: 'testapsgroup@gmail.com',
-                to: 'sumitc210@gmail.com',
+                from: process.env.EMAIL,
+                to: process.env.ADMIN_EMAIL,
                 subject: 'New Query From' + name,
                 html: data
             };

@@ -364,6 +364,7 @@
 
 
                     <form action="/admin/registeration/create" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
                             <label for="email" class="col-md-2 control-label">Email
         
@@ -371,7 +372,7 @@
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" id="email" name="email" required type="text" value="">
+                                <input class="form-control" id="email" name="email" required type="email" value="">
 
 
                             </div>

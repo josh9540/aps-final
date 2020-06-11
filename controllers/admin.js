@@ -1,5 +1,16 @@
+require('dotenv/config');
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
+const ejs = require('ejs');
+const path = require('path');
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+});
 
 const User = require('../modals/User');
 const UserRegisteration = require('../modals/User-Registeration');
@@ -175,6 +186,24 @@ exports.getLogout = (req, res, next) => {
     });
 };
 
-exports.sendEmail = (req,res,next) => {
-    const {emailto,subject,msg} = req.body;
+exports.sendEmail = (req, res, next) => {
+    const { emailto, subject, msg } = req.body;
+    ejs.renderFile(path.join(path.dirname(process.mainModule.filename), 'views', 'email', 'send.ejs'), { subject, msg }, function(err, data) {
+        if (err) {
+            throw new Error(err);
+        } else {
+            const mainOptions = {
+                from: process.env.EMAIL,
+                to: emailto,
+                subject: subject,
+                html: data
+            };
+            transporter.sendMail(mainOptions, function(err, info) {
+                if (err) {
+                    throw new Error(err);
+                }
+            });
+        }
+    });
+    res.redirect('/admin/')
 }

@@ -328,6 +328,7 @@
                 </div>
                 <% } %>
                     <form action="/admin/college/edit/true" method="POST" class="admin-form form-horizontal">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
                             <label for="twelve_subject" class="col-md-2 control-label">College Name:<strong style="color: red">*</strong>
         &nbsp;
