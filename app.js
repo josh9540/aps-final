@@ -43,7 +43,9 @@ const fileFilter = (req, file, cb) => {
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
         file.mimetype === 'image/jpeg' ||
-        file.mimetype == 'application/pdf'
+        file.mimetype === 'application/pdf' ||
+        file.mimetype === 'application/msword' ||
+        file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ) {
         cb(null, true);
     } else {
