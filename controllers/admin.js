@@ -1,4 +1,3 @@
-require('dotenv/config');
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const ejs = require('ejs');
