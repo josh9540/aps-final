@@ -1,3 +1,4 @@
+require('dotenv/config');
 const path = require('path');
 const fs = require('fs');
 
@@ -33,7 +34,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now().toString() + '-' + file.originalname);
+        cb(null, req.name + Date.now().toString() + '-' + file.originalname);
     }
 });
 
