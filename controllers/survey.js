@@ -69,6 +69,7 @@ exports.postCreateSurvey = async(req, res, next) => {
             height,
             weight,
             bloodGroup,
+            university,
             board,
             yearPassedOut,
             coaching,
@@ -96,6 +97,7 @@ exports.postCreateSurvey = async(req, res, next) => {
             height,
             weight,
             bloodGroup,
+            university,
             board,
             yearPassedOut,
             coaching,
@@ -175,6 +177,7 @@ exports.postEditSurveyTrue = async(req, res, next) => {
             height,
             weight,
             bloodGroup,
+            university,
             board,
             yearPassedOut,
             coaching,
@@ -202,6 +205,7 @@ exports.postEditSurveyTrue = async(req, res, next) => {
         survey.height = height;
         survey.weight = weight;
         survey.bloodGroup = bloodGroup;
+        survey.university = university;
         survey.board = board;
         survey.yearPassedOut = yearPassedOut;
         survey.coaching = coaching;
