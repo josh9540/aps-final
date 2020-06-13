@@ -354,6 +354,7 @@
 
 
                     <form action="/admin/registeration/edit/true" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <div class="form-group">
                             <label for="courses" class="col-md-2 control-label">Course
         &nbsp;
@@ -706,7 +707,7 @@
 
                                 <select class="form-control" data-allow-blank="1" data-role="select2" id="paid" name="paid">
                                     <option value="__None" <%= (user.paid === "__None")?"selected":" " %>> </option>
-                                    <option value="Not Paid" <%= (user.paid === "Not Paid")?"selected":" " %>>Not Paid</option>
+                                    <option value="Not Paid" <%= (user.paid === "Unpaid")?"selected":" " %>>Not Paid</option>
                                     <option value="Paid" <%= (user.paid === "Paid")?"selected":" " %>>Paid</option></select>
 
 
@@ -742,32 +743,20 @@
                             </div>
 
                         </div>
-
-
-
-
-
-
-
                         <div class="form-group">
-                            <label for="tenth_university" class="col-md-2 control-label">Tenth University
+                            <label for="tenth_university" class="col-md-2 control-label">Tenth Board
         &nbsp;
     </label>
                             <div class="col-md-10">
-
-                                <input class="form-control" id="tenth_university" name="tenthUniversity" type="text" value="<%= user.tenthUniversity %>">
-
-
+                                <select class="form-control" id="tenth_year" name="tenthBoard">
+            <option value="__None" <%= (user.tenthBoard === "__None")?"selected":" " %>>Select Board</option>
+            <option value="CBSE" id="CBSE" <%= (user.tenthBoard === "CBSE")?"selected":" " %>>CBSE</option>
+            <option value="ICSE" id="ICSE" <%= (user.tenthBoard === "ICSE")?"selected":" " %>>ICSE</option>
+            <option value="UP BOARD" id="UP BOARD" <%= (user.tenthBoard === "UP BOARD")?"selected":" " %>>UP BOARD</option>
+            <option value="OTHER" id="OTHER" <%= (user.tenthBoard === "OTHER")?"selected":" " %>>OTHER</option>
+        </select>
                             </div>
-
                         </div>
-
-
-
-
-
-
-
                         <div class="form-group">
                             <label for="tenth_year" class="col-md-2 control-label">Tenth Year
         &nbsp;
@@ -826,31 +815,26 @@
 
 
                         <div class="form-group">
-                            <label for="twelve_university" class="col-md-2 control-label">Twelve University
+                            <label for="tenth_university1" class="col-md-2 control-label">Tewelve Board
         &nbsp;
     </label>
                             <div class="col-md-10">
-
-                                <input class="form-control" id="twelve_university" name="twelveUniversity" type="text" value="<%= user.twelveUniversity %>">
-
-
+                                <select class="form-control" id="tenth_university1" name="twelveBoard">
+            <option value="__None" <%= (user.twelveBoard === "__None")?"selected":" " %> >Select Board</option>
+            <option value="CBSE" id="CBSE" <%= (user.twelveBoard === "CBSE")?"selected":" " %> >CBSE</option>
+            <option value="ISC" id="ICSE" <%= (user.twelveBoard === "ISC")?"selected":" " %> >ISC</option>
+            <option value="UP BOARD" id="UP BOARD" <%= (user.twelveBoard === "UP BOARD")?"selected":" " %> >UP BOARD</option>
+            <option value="OTHER" id="OTHER" <%= (user.twelveBoard === "OTHER")?"selected":" " %>>OTHER</option>
+        </select>
                             </div>
-
                         </div>
-
-
-
-
-
-
-
                         <div class="form-group">
                             <label for="twelve_year" class="col-md-2 control-label">Twelve Year
         &nbsp;
     </label>
                             <div class="col-md-10">
 
-                                <input class="form-control" id="twelve_year" name="twelveYear" data-role="datepicker" type="datetime" value="<%= user.twelveYear %>">
+                                <input class="form-control" id="twelve_year" name="twelveYear" data-role="datepicker" type="text" value="<%= user.twelveYear %>">
 
 
                             </div>
@@ -896,7 +880,75 @@
                         </div>
 
 
+                        <div class="form-group">
+                            <label for="graduation_university" class="col-md-2 control-label">10 + 2 Aspiring University
+        &nbsp;
+    </label>
+                            <div class="col-md-10">
 
+                                <input class="form-control" id="graduation_university" name="aspiringUniversity" type="text" value="<%= user.aspiringUniversity %>">
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            <label for="graduation_year" class="col-md-2 control-label">10 + 2 Aspiring Year
+        &nbsp;
+    </label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" id="graduation_year" name="aspiringYear" type="datetime" value="<%= user.aspiringYear %>">
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            <label for="graduation_subject" class="col-md-2 control-label">10 + 2 Aspiring Subject
+        &nbsp;
+    </label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" id="graduation_subject" name="aspiringSubject" type="text" value="<%= user.aspiringSubject %>">
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            <label for="graduation_percentage" class="col-md-2 control-label">10 + 2 Aspiring Percentage
+        &nbsp;
+    </label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" id="graduation_percentage" name="aspiringPercentage" type="text" value="<%= user.aspiringPercentage %>">
+
+
+                            </div>
+
+                        </div>
 
 
 
@@ -979,7 +1031,11 @@
         &nbsp;
     </label>
                             <div class="col-md-10">
-
+                                <select name="idType" id="document_idcard" class="form-control">
+                                    <option value="AADHAR CARD" <%= (user.idType === "AADHAR CARD")?"selected":" " %>>AADHAR CARD</option>
+                                    <option value="PAN CARD" <%= (user.idType === "PAN CARD")?"selected":" " %> >PAN CARD</option>
+                                    <option value="VOTER ID" <%= (user.idType === "VOTER ID")?"selected":" " %> >VOTER ID</option>
+                                </select>
                                 <input class="form-control" id="document_idcard" name="document_idcard" type="file">
                                 <% if(user.idProofUrl && user.idProofUrl !== ' ' ) { %>
                                     <a href="/<%= user.idProofUrl %>">View</a>

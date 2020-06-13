@@ -11,7 +11,6 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const csrf = require('csurf');
-const csrfProtection = csrf();
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -90,14 +89,15 @@ app.use(
 
 
 app.use('/mobile', mobileRoutes.routes);
+const csrfProtection = csrf();
 app.use(csrfProtection);
 app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next();
 });
 app.use(publicRoutes.routes);
-app.use('/admin', adminRoutes.routes);
 app.use('/', userRoutes.routes);
+app.use('/admin', adminRoutes.routes);
 app.get('/500', errorController.get500);
 app.use(errorController.get404);
 

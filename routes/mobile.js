@@ -43,6 +43,6 @@ router.post('/survey/create', [body('name', 'Name cannot be empty').not().isEmpt
                 return Promise.reject('Contact no already exists');
             }
         })
-}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty(), body('qualification', 'Qualification cannot be empty').not().isEmpty()], surveyController.postCreateSurvey);
+}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty()], surveyController.postCreateSurvey);
 
 exports.routes = router;

@@ -24,12 +24,17 @@ exports.postCreateSurvey = async(req, res, next) => {
             state,
             district,
             tehsil,
+            pincode,
             contact,
             height,
             weight,
             bloodGroup,
-            qualification,
-            familyBackground,
+            board,
+            yearPassedOut,
+            coaching,
+            forceMember,
+            governmentMember,
+            other,
         } = req.body;
         let studentPhotoUrl;
         if (req.files.photo) {
@@ -46,12 +51,17 @@ exports.postCreateSurvey = async(req, res, next) => {
             state,
             district,
             tehsil,
+            pincode,
             contact,
             height,
             weight,
             bloodGroup,
-            qualification,
-            familyBackground,
+            board,
+            yearPassedOut,
+            coaching,
+            forceMember,
+            governmentMember,
+            other,
             studentPhotoUrl
         });
         const survey = await newSurvey.save();

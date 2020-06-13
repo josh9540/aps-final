@@ -72,17 +72,22 @@ exports.postRegisterationCreate = async(req, res, next) => {
             weight,
             paid,
             bloodGroup,
-            tenthUniversity,
+            tenthBoard,
             tenthYear,
             tenthSubject,
             tenthPercentage,
-            twelveUniversity,
+            twelveBoard,
             twelveSubject,
             twelvePercentage,
+            aspiringUniversity,
+            aspiringYear,
+            aspiringSubject,
+            aspiringPercentage,
             graduationUniversity,
             graduationYear,
             graduationSubject,
-            graduationPercentage
+            graduationPercentage,
+            idType
         } = req.body;
         let idProofUrl = "",
             tenthMarksheetUrl = "",
@@ -124,17 +129,22 @@ exports.postRegisterationCreate = async(req, res, next) => {
             weight: weight,
             paid: paid,
             bloodGroup: bloodGroup,
-            tenthUniversity: tenthUniversity,
+            tenthBoard: tenthBoard,
             tenthYear: tenthYear,
             tenthSubject: tenthSubject,
             tenthPercentage: tenthPercentage,
-            twelveUniversity: twelveUniversity,
+            twelveBoard: twelveBoard,
             twelveSubject: twelveSubject,
             twelvePercentage: twelvePercentage,
+            aspiringUniversity: aspiringUniversity,
+            aspiringYear: aspiringYear,
+            aspiringSubject: aspiringSubject,
+            aspiringPercentage: aspiringPercentage,
             graduationUniversity: graduationUniversity,
             graduationYear: graduationYear,
             graduationSubject: graduationSubject,
             graduationPercentage: graduationPercentage,
+            idType: idType,
             idProofUrl: idProofUrl,
             tenthMarksheetUrl: tenthMarksheetUrl,
             twelveMarksheetUrl: twelveMarksheetUrl,
@@ -216,17 +226,22 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             weight,
             paid,
             bloodGroup,
-            tenthUniversity,
+            tenthBoard,
             tenthYear,
             tenthSubject,
             tenthPercentage,
-            twelveUniversity,
+            twelveBoard,
             twelveSubject,
             twelvePercentage,
+            aspiringUniversity,
+            aspiringYear,
+            aspiringSubject,
+            aspiringPercentage,
             graduationUniversity,
             graduationYear,
             graduationSubject,
-            graduationPercentage
+            graduationPercentage,
+            idType
         } = req.body;
         let idProofUrl = user.idProofUrl || " ",
             tenthMarksheetUrl = user.tenthMarksheetUrl || " ",
@@ -271,17 +286,22 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
         user.weight = weight;
         user.paid = paid;
         user.bloodGroup = bloodGroup;
-        user.tenthUniversity = tenthUniversity;
+        user.tenthBoard = tenthBoard;
         user.tenthYear = tenthYear;
         user.tenthSubject = tenthSubject;
         user.tenthPercentage = tenthPercentage;
-        user.twelveUniversity = twelveUniversity;
+        user.twelveBoard = twelveBoard;
         user.twelveSubject = twelveSubject;
         user.twelvePercentage = twelvePercentage;
+        user.aspiringUniversity = aspiringUniversity;
+        user.aspiringYear = aspiringYear;
+        user.aspiringSubject = aspiringSubject;
+        user.aspiringPercentage = aspiringPercentage;
         user.graduationUniversity = graduationUniversity;
         user.graduationYear = graduationYear;
         user.graduationSubject = graduationSubject;
         user.graduationPercentage = graduationPercentage;
+        user.idType = idType;
         user.idProofUrl = idProofUrl;
         user.studentPhotoUrl = studentPhotoUrl;
         user.tenthMarksheetUrl = tenthMarksheetUrl;
@@ -302,19 +322,19 @@ exports.deleteRegisteration = async(req, res, next) => {
         const _id = req.params._id;
         if (_id) {
             const user = await UserRegistration.findById(_id);
-            if (user.idProofUrl) {
+            if (user.idProofUrl && user.idProofUrl !== " ") {
                 fileHelper.deleteFile(user.idProofUrl);
             }
-            if (user.studentPhotoUrl) {
+            if (user.studentPhotoUrl && user.studentPhotoUrl !== " ") {
                 fileHelper.deleteFile(user.studentPhotoUrl);
             }
-            if (user.tenthMarksheetUrl) {
+            if (user.tenthMarksheetUrl && user.tenthMarksheetUrl !== ' ') {
                 fileHelper.deleteFile(user.tenthMarksheetUrl);
             }
-            if (user.twelveMarksheetUrl) {
+            if (user.twelveMarksheetUrl && user.twelveMarksheetUrl !== ' ') {
                 fileHelper.deleteFile(user.twelveMarksheetUrl);
             }
-            if (user.universityDocumentUrl) {
+            if (user.universityDocumentUrl && user.universityDocumentUrl !== " ") {
                 fileHelper.deleteFile(user.universityDocumentUrl);
             }
             await user.remove();

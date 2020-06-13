@@ -41,7 +41,6 @@
                     <h4 class="text-3 font-weight-semibold mb-0 text-muted">SEND US A MESSAGE</h4>
                     <form id="contactForm" class="contact-form" action="/contact" method="POST">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <input type="hidden" value="Contact Form" name="subject" id="subject">
                         <div class="contact-form-success alert alert-success d-none" id="contactSuccess">
                             Message has been sent to us.
                         </div>

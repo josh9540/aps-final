@@ -134,7 +134,7 @@ router.post('/survey/create', [body('name', 'Name cannot be empty').not().isEmpt
                 return Promise.reject('Contact no already exists');
             }
         })
-}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty(), body('qualification', 'Qualification cannot be empty').not().isEmpty()], isAuth, surveyController.postCreateSurvey);
+}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty()], isAuth, surveyController.postCreateSurvey);
 router.get('/survey/edit', isAuth, surveyController.getEditSurvey);
 router.post('/survey/edit', isAuth, surveyController.postEditSurvey);
 router.post('/survey/edit/true', [body('name', 'Name cannot be empty').not().isEmpty(), body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
@@ -151,7 +151,7 @@ router.post('/survey/edit/true', [body('name', 'Name cannot be empty').not().isE
                 return Promise.reject('Contact no already exists');
             }
         })
-}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty(), body('qualification', 'Qualification cannot be empty').not().isEmpty()], isAuth, surveyController.postEditSurveyTrue);
+}), body('height', 'Height cannot be empty').not().isEmpty(), body('weight', 'Weight cannot be empty').not().isEmpty()], isAuth, surveyController.postEditSurveyTrue);
 router.get('/survey/delete/:_id', isAuth, surveyController.deleteSurvey);
 router.get('/survey/csv', isAuth, surveyController.getCsv);
 router.get('/survey/edit/:_id', isAuth, surveyController.getEditRegisterationId);

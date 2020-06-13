@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/paid" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="<%= key %>" data-amount="<%= amount %>" data-currency="INR" data-order_id="<%= id %>" data-buttontext="Pay with Razorpay" data-name="Acme Corp" data-description="Test transaction" data-image="https://lh3.googleusercontent.com/proxy/CQAVAtCAMgeln4WNebXMaHkvSmu4Z0dgg9aeFE4eNH0-tJRjiUtz8is9ppSM-gWpcTLlpIw-VwUGLHIxcPwRAx2wBSKrwlM"
+            data-prefill.name="<%= name %>" data-prefill.email="<%= email %>" data-prefill.contact="<%= contact %>" data-theme.color="#F37254"></script>
+    </form>
+</body>
+
+</html>

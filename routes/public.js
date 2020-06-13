@@ -135,7 +135,7 @@ router.get('/why_arrow', (req, res) => {
 
 router.get('/registration-form', registerationController.getRegistrationCreate);
 
-router.post('/registeration/create', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
+router.post('/registration-form', [body('email').isEmail().withMessage('Please enter a valid email.').custom((value, { req }) => {
     return userRegistrations.findOne({ email: value })
         .then(userDoc => {
             if (userDoc) {
@@ -170,7 +170,22 @@ router.post('/contact', (req, res, next) => {
             });
         }
     });
-    res.redirect('/contact')
+    res.redirect('/contact');
+});
+
+router.post('/paid', (req, res, next) => {
+    console.log(req.body);
+    const crypto = require("crypto");
+
+    var generatedSignature = crypto
+        .createHmac(
+            "SHA256",
+            process.env.KEY_SECRET
+        )
+        .update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
+        .digest("hex");
+    var isSignatureValid = generatedSignature === req.body.razorpay_signature;
+    console.log(isSignatureValid);
 });
 
 exports.routes = router;

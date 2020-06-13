@@ -58,8 +58,7 @@
                                     <%= errorMessage %>
                                 </h2>
                             </div>
-                            <form class="registration" action="/registeration/create" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <form class="registration" action="/registration-form" method="POST" enctype="multipart/form-data">
                                 <div class="mb20">
                                     <label for="email">Email<sup style="color: red; text-decoration: bold;">*</sup></label>
                                     <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">
@@ -125,7 +124,6 @@
                                     <option value="Haryana">Haryana</option><option value="Himachal Pradesh">Himachal Pradesh</option><option value="Jammu and Kashmir">Jammu and Kashmir</option><option value="Jharkhand">Jharkhand</option><option value="Karnataka">Karnataka</option><option value="Kerala">Kerala</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Manipur">Manipur</option><option value="Meghalaya">Meghalaya </option><option value="Mizoram ">Mizoram </option><option value="Nagaland">Nagaland</option><option value="Odisha">Odisha</option><option value="Punjab">Punjab</option><option value="Rajasthan">Rajasthan</option><option value="Sikkim">Sikkim</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Tripura">Tripura</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="Uttarakhand">Uttarakhand</option><option value="West Bengal">West Bengal</option>
                                         </select>
                                 </div>
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="mb20">
                                     <label for="district">District</label>
                                     <input type="text" name="district" value="" id="district" class="form-control" placeholder="District">
@@ -177,8 +175,16 @@
                                     </select>
                                 </div>
                                 <div class="mb20">
-                                    <label for="tenthUniversity">Tenth University</label>
-                                    <input type="text" name="tenthUniversity" id="tenthUniversity" placeholder="Tenth University" class="form-control" value=" ">
+                                    <label for="tenth_university">Tenth Board
+            </label>
+
+                                    <select class="form-control" id="tenth_university" name="tenthBoard">
+                    <option value="__None">Select Board</option>
+                    <option value="CBSE" id="CBSE">CBSE</option>
+                    <option value="ICSE" id="ICSE">ICSE</option>
+                    <option value="UP BOARD" id="UP BOARD">UP BOARD</option>
+                    <option value="OTHER" id="OTHER">OTHER</option>
+                </select>
                                 </div>
                                 <div class="mb20">
                                     <label for="tenthYear">Tenth year</label>
@@ -193,8 +199,14 @@
                                     <input class="form-control" id="tenth_percentage" placeholder="Tenth Percentage" name="tenthPercentage" type="number" value="0.0">
                                 </div>
                                 <div class="mb20">
-                                    <label for="twelve_university">Twelve University</label>
-                                    <input class="form-control" id="twelve_university" placeholder="Twele University" name="twelveUniversity" type="text" value="">
+                                    <label for="tenth_university1">Tewelve Board</label>
+                                    <select class="form-control" id="tenth_university1" name="twelveBoard">
+                                        <option value="__None">Select Board</option>
+                                        <option value="CBSE" id="CBSE">CBSE</option>
+                                        <option value="ISC" id="ICSE">ISC</option>
+                                        <option value="UP BOARD" id="UP BOARD">UP BOARD</option>
+                                        <option value="OTHER" id="OTHER">OTHER</option>
+                                    </select>
                                 </div>
                                 <div class="mb20">
                                     <label for="twelve_year">Twelve Year</label>
@@ -207,6 +219,22 @@
                                 <div class="mb20">
                                     <label for="twelve_percentage">Twelve Percentage</label>
                                     <input class="form-control" id="twelve_percentage" name="twelvePercentage" placeholder="Twelve Percentage" type="number" value="0.0">
+                                </div>
+                                <div class="mb20">
+                                    <label for="aspiring_university">10 + 2 Aspiring University</label>
+                                    <input class="form-control" id="aspiring_university" placeholder="aspiring University" name="aspiringUniversity" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="aspiring_year">10 + 2 Aspiring Year</label>
+                                    <input class="form-control" id="aspiring_year" placeholder="aspiring Year" name="aspiringYear" type="date" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="aspiring_subject">10 + 2 Aspiring Subject</label>
+                                    <input class="form-control" id="aspiring_subject" name="aspiringSubject" placeholder="aspiring Subject" type="text" value="">
+                                </div>
+                                <div class="mb20">
+                                    <label for="aspiring_percentage">10 +2 Aspiring Percentage</label>
+                                    <input class="form-control" id="aspiring_percentage" name="aspiringPercentage" placeholder="Grafuation Percentage" type="number" value="0.0">
                                 </div>
                                 <div class="mb20">
                                     <label for="graduation_university">Graduation University</label>
@@ -226,6 +254,11 @@
                                 </div>
                                 <div class="mb20">
                                     <label for="document_idcard">ID Proof</label>
+                                    <select name="idType" id="document_idcard" class="form-control">
+                                        <option value="AADHAR CARD">AADHAR CARD</option>
+                                        <option value="PAN CARD">PAN CARD</option>
+                                        <option value="VOTER ID">VOTER ID</option>
+                                    </select>
                                     <input type="file" name="document_idcard" id="document_idcard" />
                                 </div>
                                 <div class="mb20">
@@ -244,6 +277,7 @@
                                     <label id="photo">Student Photo</label>
                                     <input type="file" id="photo" name="photo" />
                                 </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="mb20 text-right">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>

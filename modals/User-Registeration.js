@@ -63,7 +63,7 @@ const userSchema = new Schema({
     bloodGroup: {
         type: String
     },
-    tenthUniversity: {
+    tenthBoard: {
         type: String
     },
     tenthYear: {
@@ -75,7 +75,7 @@ const userSchema = new Schema({
     tenthPercentage: {
         type: Number
     },
-    twelveUniversity: {
+    twelveBoard: {
         type: String
     },
     twelveYear: {
@@ -85,6 +85,18 @@ const userSchema = new Schema({
         type: String
     },
     twelvePercentage: {
+        type: Number
+    },
+    aspiringUniversity: {
+        type: String
+    },
+    aspiringYear: {
+        type: Date
+    },
+    aspiringSubject: {
+        type: String
+    },
+    aspiringPercentage: {
         type: Number
     },
     graduationUniversity: {
@@ -98,6 +110,9 @@ const userSchema = new Schema({
     },
     graduationPercentage: {
         type: Number
+    },
+    idType: {
+        type: String
     },
     idProofUrl: {
         type: String

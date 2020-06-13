@@ -36,6 +36,9 @@ const surveySchema = new Schema({
     tehsil: {
         type: String
     },
+    pincode: {
+        type: Number
+    },
     contact: {
         type: Number,
         required: true,
@@ -50,11 +53,22 @@ const surveySchema = new Schema({
     bloodGroup: {
         type: String
     },
-    qualification: {
+    board: {
         type: String,
-        required: true
     },
-    familyBackground: {
+    yearPassedOut: {
+        type: Date
+    },
+    coaching: {
+        type: String
+    },
+    forceMember: {
+        type: String
+    },
+    governmentMember: {
+        type: String
+    },
+    other: {
         type: String
     },
     studentPhotoUrl: {

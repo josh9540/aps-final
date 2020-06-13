@@ -1,9 +1,16 @@
+require('dotenv/config');
 const { validationResult } = require('express-validator');
+const Razorpay = require('razorpay');
 
 const UserRegistration = require('../modals/User-Registeration');
 const Course = require('../modals/Courses');
 const College = require('../modals/College');
 const fileHelper = require('../util/file');
+
+const instance = new Razorpay({
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.KEY_SECRET,
+});
 
 exports.getRegistrationCreate = async(req, res, next) => {
     try {
@@ -56,17 +63,22 @@ exports.postRegisterationCreate = async(req, res, next) => {
             weight,
             paid,
             bloodGroup,
-            tenthUniversity,
+            tenthBoard,
             tenthYear,
             tenthSubject,
             tenthPercentage,
-            twelveUniversity,
+            twelveBoard,
             twelveSubject,
             twelvePercentage,
+            aspiringUniversity,
+            aspiringYear,
+            aspiringSubject,
+            aspiringPercentage,
             graduationUniversity,
             graduationYear,
             graduationSubject,
-            graduationPercentage
+            graduationPercentage,
+            idType
         } = req.body;
         let idProofUrl,
             tenthMarksheetUrl,
@@ -89,7 +101,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
         }
         const newUser = new UserRegistration({
-            courses:courses1,
+            courses: courses1,
             college,
             name,
             fatherName,
@@ -107,17 +119,22 @@ exports.postRegisterationCreate = async(req, res, next) => {
             weight,
             paid,
             bloodGroup,
-            tenthUniversity,
+            tenthBoard,
             tenthYear,
             tenthSubject,
             tenthPercentage,
-            twelveUniversity,
+            twelveBoard,
             twelveSubject,
             twelvePercentage,
+            aspiringUniversity,
+            aspiringYear,
+            aspiringSubject,
+            aspiringPercentage,
             graduationUniversity,
             graduationYear,
             graduationSubject,
             graduationPercentage,
+            idType,
             idProofUrl,
             tenthMarksheetUrl,
             twelveMarksheetUrl: twelveMarksheetUrl,
@@ -125,11 +142,30 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl
         });
         const user = await newUser.save();
+        // var options = {
+        //     amount: 50000,
+        //     currency: "INR",
+        //     receipt: "aa110055aaa",
+        //     payment_capture: '0'
+        // };
+        // const order = await instance.orders.create(options);
+        // , function(err, order) {
+        //     console.log(order);
+        // });
         res.render('public/registration-form', {
             errorMessage: 'Registeration Successful',
             courses: courses,
             colleges: colleges
         });
+        // res.render('pay', {
+        //     key: process.env.KEY_ID,
+        //     amount: order.amount,
+        //     name: user.name,
+        //     contact: user.contact,
+        //     email: user.email,
+        //     id: order.id
+        // })
+        // console.log(order)
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -202,17 +238,22 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             weight,
             paid,
             bloodGroup,
-            tenthUniversity,
+            tenthBoard,
             tenthYear,
             tenthSubject,
             tenthPercentage,
-            twelveUniversity,
+            twelveBoard,
             twelveSubject,
             twelvePercentage,
+            aspiringUniversity,
+            aspiringYear,
+            aspiringSubject,
+            aspiringPercentage,
             graduationUniversity,
             graduationYear,
             graduationSubject,
-            graduationPercentage
+            graduationPercentage,
+            idType,
         } = req.body;
         let idProofUrl = user.idProofUrl || " ",
             tenthMarksheetUrl = user.tenthMarksheetUrl || " ",
@@ -257,17 +298,22 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
         user.weight = weight;
         user.paid = paid;
         user.bloodGroup = bloodGroup;
-        user.tenthUniversity = tenthUniversity;
+        user.tenthBoard = tenthBoard;
         user.tenthYear = tenthYear;
         user.tenthSubject = tenthSubject;
         user.tenthPercentage = tenthPercentage;
-        user.twelveUniversity = twelveUniversity;
+        user.twelveBoard = twelveBoard;
         user.twelveSubject = twelveSubject;
         user.twelvePercentage = twelvePercentage;
+        user.aspiringUniversity = aspiringUniversity;
+        user.aspiringYear = aspiringYear;
+        user.aspiringSubject = aspiringSubject;
+        user.aspiringPercentage = aspiringPercentage;
         user.graduationUniversity = graduationUniversity;
         user.graduationYear = graduationYear;
         user.graduationSubject = graduationSubject;
         user.graduationPercentage = graduationPercentage;
+        user.idType = idType;
         user.idProofUrl = idProofUrl;
         user.studentPhotoUrl = studentPhotoUrl;
         user.tenthMarksheetUrl = tenthMarksheetUrl;
