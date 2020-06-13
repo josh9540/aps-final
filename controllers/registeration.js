@@ -76,6 +76,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             tenthYear,
             tenthSubject,
             tenthPercentage,
+            twelveYear,
             twelveBoard,
             twelveSubject,
             twelvePercentage,
@@ -134,6 +135,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             tenthSubject: tenthSubject,
             tenthPercentage: tenthPercentage,
             twelveBoard: twelveBoard,
+            twelveYear: twelveYear,
             twelveSubject: twelveSubject,
             twelvePercentage: twelvePercentage,
             aspiringUniversity: aspiringUniversity,
@@ -231,6 +233,7 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             tenthSubject,
             tenthPercentage,
             twelveBoard,
+            twelveYear,
             twelveSubject,
             twelvePercentage,
             aspiringUniversity,
@@ -291,6 +294,7 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
         user.tenthSubject = tenthSubject;
         user.tenthPercentage = tenthPercentage;
         user.twelveBoard = twelveBoard;
+        user.twelveYear = twelveYear;
         user.twelveSubject = twelveSubject;
         user.twelvePercentage = twelvePercentage;
         user.aspiringUniversity = aspiringUniversity;
