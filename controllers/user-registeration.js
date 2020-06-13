@@ -7,10 +7,10 @@ const Course = require('../modals/Courses');
 const College = require('../modals/College');
 const fileHelper = require('../util/file');
 
-const instance = new Razorpay({
-    key_id: process.env.KEY_ID,
-    key_secret: process.env.KEY_SECRET,
-});
+// const instance = new Razorpay({
+//     key_id: process.env.KEY_ID,
+//     key_secret: process.env.KEY_SECRET,
+// });
 
 exports.getRegistrationCreate = async(req, res, next) => {
     try {
