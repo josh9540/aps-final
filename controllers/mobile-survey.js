@@ -38,7 +38,7 @@ exports.postCreateSurvey = async(req, res, next) => {
             other,
         } = req.body;
         let studentPhotoUrl;
-        if (req.files.photo) {
+        if (req.body.photo != '' && req.files.photo) {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
         }
         const newSurvey = new Survey({

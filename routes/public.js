@@ -173,19 +173,6 @@ router.post('/contact', (req, res, next) => {
     res.redirect('/contact');
 });
 
-router.post('/paid', (req, res, next) => {
-    console.log(req.body);
-    const crypto = require("crypto");
-
-    var generatedSignature = crypto
-        .createHmac(
-            "SHA256",
-            process.env.KEY_SECRET
-        )
-        .update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
-        .digest("hex");
-    var isSignatureValid = generatedSignature === req.body.razorpay_signature;
-    console.log(isSignatureValid);
-});
+router.post('/paid', registerationController.postPaid);
 
 exports.routes = router;

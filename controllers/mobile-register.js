@@ -66,22 +66,26 @@ exports.postRegisterationCreate = async(req, res, next) => {
             tenthMarksheetUrl,
             twelveMarksheetUrl,
             universityDocumentUrl,
-            studentPhotoUrl;
+            studentPhotoUrl,
+            aspiringUrl;
 
-        if (req.files.document_idcard) {
+        if (req.body.document_idcard != '' && req.files.document_idcard) {
             idProofUrl = req.files.document_idcard[0].path.replace("\\", "/");
         }
-        if (req.files.tenth_marksheet) {
+        if (req.body.tenth_marksheet != '' && req.files.tenth_marksheet) {
             tenthMarksheetUrl = req.files.tenth_marksheet[0].path.replace("\\", "/");
         }
-        if (req.files.twelve_marksheet) {
+        if (req.body.twelve_marksheet != '' && req.files.twelve_marksheet) {
             twelveMarksheetUrl = req.files.twelve_marksheet[0].path.replace("\\", "/");
         }
-        if (req.files.graduation_document) {
+        if (req.body.graduation_document != '' && req.files.graduation_document) {
             universityDocumentUrl = req.files.graduation_document[0].path.replace("\\", "/");
         }
-        if (req.files.photo) {
+        if (req.body.photo != '' && req.files.photo) {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+        }
+        if (req.body.aspiring != '' && req.files.aspiring) {
+            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");
         }
         const newUser = new UserRegistration({
             courses,
@@ -122,6 +126,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             idProofUrl,
             tenthMarksheetUrl,
             twelveMarksheetUrl: twelveMarksheetUrl,
+            aspiringUrl,
             universityDocumentUrl,
             studentPhotoUrl
         });

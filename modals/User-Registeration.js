@@ -123,6 +123,9 @@ const userSchema = new Schema({
     twelveMarksheetUrl: {
         type: String
     },
+    aspiringUrl: {
+        type: String
+    },
     universityDocumentUrl: {
         type: String
     },

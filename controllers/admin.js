@@ -187,14 +187,17 @@ exports.getLogout = (req, res, next) => {
 };
 
 exports.sendEmail = (req, res, next) => {
-    const { emailto, subject, msg } = req.body;
+    let { emailto, subject, msg } = req.body;
+    if (emailto.indexOf(',') !== -1) {
+        emailto = emailto.split(',');
+    }
     ejs.renderFile(path.join(path.dirname(process.mainModule.filename), 'views', 'email', 'send.ejs'), { subject, msg }, function(err, data) {
         if (err) {
             throw new Error(err);
         } else {
             const mainOptions = {
                 from: process.env.EMAIL,
-                to: emailto,
+                bcc: emailto,
                 subject: subject,
                 html: data
             };

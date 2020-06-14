@@ -73,6 +73,7 @@ app.use(
         { name: 'twelve_marksheet', maxCount: 1 },
         { name: 'graduation_document', maxCount: 1 },
         { name: 'photo', maxCount: 1 },
+        { name: 'aspiring', maxCount: 1 }
     ])
 );
 

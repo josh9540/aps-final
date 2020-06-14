@@ -94,7 +94,8 @@ exports.postRegisterationCreate = async(req, res, next) => {
             tenthMarksheetUrl = "",
             twelveMarksheetUrl = "",
             universityDocumentUrl = "",
-            studentPhotoUrl = "";
+            studentPhotoUrl = "",
+            aspiringUrl = "";
         console.log(req.file, req.files);
         if (req.files.document_idcard) {
             idProofUrl = req.files.document_idcard[0].path.replace("\\", "/");;
@@ -110,6 +111,9 @@ exports.postRegisterationCreate = async(req, res, next) => {
         }
         if (req.files.photo) {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");;
+        }
+        if (req.files.aspiring) {
+            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");;
         }
         const newUser = new UserRegistration({
             courses: courses,
@@ -150,6 +154,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
             idProofUrl: idProofUrl,
             tenthMarksheetUrl: tenthMarksheetUrl,
             twelveMarksheetUrl: twelveMarksheetUrl,
+            aspiringUrl: aspiringUrl,
             universityDocumentUrl: universityDocumentUrl,
             studentPhotoUrl: studentPhotoUrl
         });
@@ -250,7 +255,8 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             tenthMarksheetUrl = user.tenthMarksheetUrl || " ",
             twelveMarksheetUrl = user.twelveMarksheetUrl || " ",
             universityDocumentUrl = user.universityDocumentUrl || " ",
-            studentPhotoUrl = user.studentPhotoUrl || " ";
+            studentPhotoUrl = user.studentPhotoUrl || " ",
+            aspiringUrl = user.aspiringUrl || " ";
 
         if (req.files.document_idcard) {
             fileHelper.deleteFile(user.idProofUrl);
@@ -269,7 +275,12 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             universityDocumentUrl = req.files.graduation_document[0].path.replace("\\", "/");;
         }
         if (req.files.photo) {
+            fileHelper.deleteFile(studentPhotoUrl);
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");;
+        }
+        if (req.files.aspiring) {
+            fileHelper.deleteFile(aspiringUrl);
+            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");;
         }
         user.courses = courses;
         user.college = college;
@@ -310,6 +321,7 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
         user.studentPhotoUrl = studentPhotoUrl;
         user.tenthMarksheetUrl = tenthMarksheetUrl;
         user.twelveMarksheetUrl = twelveMarksheetUrl;
+        user.aspiringUrl = aspiringUrl;
         user.universityDocumentUrl = universityDocumentUrl;
         const savedUser = await user.save();
         res.redirect('/admin/registeration');

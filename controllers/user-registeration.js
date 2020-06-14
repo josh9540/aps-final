@@ -6,6 +6,7 @@ const UserRegistration = require('../modals/User-Registeration');
 const Course = require('../modals/Courses');
 const College = require('../modals/College');
 const fileHelper = require('../util/file');
+const amountFinder = require('../util/amount');
 
 // const instance = new Razorpay({
 //     key_id: process.env.KEY_ID,
@@ -85,7 +86,8 @@ exports.postRegisterationCreate = async(req, res, next) => {
             tenthMarksheetUrl,
             twelveMarksheetUrl,
             universityDocumentUrl,
-            studentPhotoUrl;
+            studentPhotoUrl,
+            aspiringUrl;
         if (req.files.document_idcard) {
             idProofUrl = req.files.document_idcard[0].path.replace("\\", "/");
         }
@@ -100,6 +102,9 @@ exports.postRegisterationCreate = async(req, res, next) => {
         }
         if (req.files.photo) {
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+        }
+        if (req.files.aspiring) {
+            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");
         }
         const newUser = new UserRegistration({
             courses: courses1,
@@ -140,34 +145,35 @@ exports.postRegisterationCreate = async(req, res, next) => {
             idProofUrl,
             tenthMarksheetUrl,
             twelveMarksheetUrl: twelveMarksheetUrl,
+            aspiringUrl,
             universityDocumentUrl,
             studentPhotoUrl
         });
         const user = await newUser.save();
+        // const amount = await amountFinder(user.courses);
         // var options = {
-        //     amount: 50000,
+        //     amount: amount,
         //     currency: "INR",
         //     receipt: "aa110055aaa",
         //     payment_capture: '0'
         // };
         // const order = await instance.orders.create(options);
-        // , function(err, order) {
-        //     console.log(order);
-        // });
+        // res.render('pay');
         res.render('public/registration-form', {
             errorMessage: 'Registeration Successful',
             courses: courses,
             colleges: colleges
         });
         // res.render('pay', {
-        //     key: process.env.KEY_ID,
-        //     amount: order.amount,
-        //     name: user.name,
-        //     contact: user.contact,
-        //     email: user.email,
-        //     id: order.id
-        // })
-        // console.log(order)
+        //         key: process.env.KEY_ID,
+        //         amount: order.amount,
+        //         name: user.name,
+        //         contact: user.contact,
+        //         email: user.email,
+        //         id: order.id,
+        //         _id: user._id
+        //     })
+        //     // console.log(order)
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -262,7 +268,8 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             tenthMarksheetUrl = user.tenthMarksheetUrl || " ",
             twelveMarksheetUrl = user.twelveMarksheetUrl || " ",
             universityDocumentUrl = user.universityDocumentUrl || " ",
-            studentPhotoUrl = user.studentPhotoUrl || " ";
+            studentPhotoUrl = user.studentPhotoUrl || " ",
+            aspiringUrl = user.aspiringUrl || " ";
 
         if (req.files.document_idcard) {
             fileHelper.deleteFile(user.idProofUrl);
@@ -281,7 +288,12 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
             universityDocumentUrl = req.files.graduation_document[0].path.replace("\\", "/");
         }
         if (req.files.photo) {
+            fileHelper.deleteFile(studentPhotoUrl);
             studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+        }
+        if (req.files.aspiring) {
+            fileHelper.deleteFile(aspiringUrl);
+            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");
         }
         user.courses = courses;
         user.college = college;
@@ -322,6 +334,7 @@ exports.postEditRegistrationTrue = async(req, res, next) => {
         user.studentPhotoUrl = studentPhotoUrl;
         user.tenthMarksheetUrl = tenthMarksheetUrl;
         user.twelveMarksheetUrl = twelveMarksheetUrl;
+        user.aspiringUrl = aspiringUrl;
         user.universityDocumentUrl = universityDocumentUrl;
         const savedUser = await user.save();
         res.redirect('/');
@@ -369,4 +382,27 @@ exports.getFind = async(req, res, next) => {
         }
         next(err);
     }
+}
+
+exports.postPaid = async(req, res, next) => {
+    const colleges = await College.find();
+    const courses = await Course.find();
+    const crypto = require("crypto");
+    const generatedSignature = crypto
+        .createHmac(
+            "SHA256",
+            process.env.KEY_SECRET
+        )
+        .update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
+        .digest("hex");
+    const isSignatureValid = generatedSignature === req.body.razorpay_signature;
+    let errorMessage = "Payment Unsuccessful";
+    if (isSignatureValid) {
+        errorMessage = "Payment Successful"
+    }
+    res.render('public/registration-form', {
+        errorMessage: errorMessage,
+        courses: courses,
+        colleges: colleges
+    });
 }
