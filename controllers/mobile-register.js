@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const UserRegistration = require('../modals/User-Registeration');
 const Course = require('../modals/Courses');
 const College = require('../modals/College');
+const imageConverter = require('../util/string-to-image');
 
 exports.getCollege = async(req, res, next) => {
     const colleges = await College.find();
@@ -69,23 +70,35 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl,
             aspiringUrl;
 
-        if (req.body.document_idcard != '' && req.files.document_idcard) {
-            idProofUrl = req.files.document_idcard[0].path.replace("\\", "/");
+        if (req.body.document_idcard != '') {
+            idProofUrl = req.body.name + Date.now().toString() + 'idProof.jpg';
+            imageConverter(req.body.document_idcard, idProofUrl);
+            idProofUrl = 'images/' + idProofUrl;
         }
-        if (req.body.tenth_marksheet != '' && req.files.tenth_marksheet) {
-            tenthMarksheetUrl = req.files.tenth_marksheet[0].path.replace("\\", "/");
+        if (req.body.tenth_marksheet != '') {
+            tenthMarksheetUrl = req.body.name + Date.now().toString() + 'tenthMarksheetUrl.jpg';
+            imageConverter(req.body.tenth_marksheet, tenthMarksheetUrl);
+            tenthMarksheetUrl = 'images/' + tenthMarksheetUrl;
         }
-        if (req.body.twelve_marksheet != '' && req.files.twelve_marksheet) {
-            twelveMarksheetUrl = req.files.twelve_marksheet[0].path.replace("\\", "/");
+        if (req.body.twelve_marksheet != '') {
+            twelveMarksheetUrl = req.body.name + Date.now().toString() + 'twelveMarksheetUrl.jpg';
+            imageConverter(req.body.twelve_marksheet, twelveMarksheetUrl);
+            twelveMarksheetUrl = 'images/' + twelveMarksheetUrl;
         }
-        if (req.body.graduation_document != '' && req.files.graduation_document) {
-            universityDocumentUrl = req.files.graduation_document[0].path.replace("\\", "/");
+        if (req.body.graduation_document != '') {
+            universityDocumentUrl = req.body.name + Date.now().toString() + 'graduation_document.jpg';
+            imageConverter(req.body.graduation_document, universityDocumentUrl);
+            universityDocumentUrl = 'images/' + universityDocumentUrl;
         }
-        if (req.body.photo != '' && req.files.photo) {
-            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+        if (req.body.photo != '') {
+            studentPhotoUrl = req.body.name + Date.now().toString() + 'photo.jpg';
+            imageConverter(req.body.photo, studentPhotoUrl);
+            studentPhotoUrl = 'images/' + studentPhotoUrl;
         }
-        if (req.body.aspiring != '' && req.files.aspiring) {
-            aspiringUrl = req.files.aspiring[0].path.replace("\\", "/");
+        if (req.body.aspiring != '') {
+            aspiringUrl = req.body.name + Date.now().toString() + 'aspiring.jpg';
+            imageConverter(req.body.aspiring, aspiringUrl);
+            aspiringUrl = 'images/' + aspiringUrl;
         }
         const newUser = new UserRegistration({
             courses,

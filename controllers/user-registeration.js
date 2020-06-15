@@ -173,7 +173,7 @@ exports.postRegisterationCreate = async(req, res, next) => {
         //         id: order.id,
         //         _id: user._id
         //     })
-        //     // console.log(order)
+        // console.log(order)
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

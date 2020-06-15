@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 
 const Survey = require('../modals/Survey');
+const imageConverter = require('../util/string-to-image');
+
 
 exports.postCreateSurvey = async(req, res, next) => {
     const errors = validationResult(req);
@@ -38,8 +40,10 @@ exports.postCreateSurvey = async(req, res, next) => {
             other,
         } = req.body;
         let studentPhotoUrl;
-        if (req.body.photo != '' && req.files.photo) {
-            studentPhotoUrl = req.files.photo[0].path.replace("\\", "/");
+        if (req.body.photo != '') {
+            studentPhotoUrl = req.body.name + Date.now().toString() + 'photo.jpg';
+            imageConverter(req.body.photo, studentPhotoUrl);
+            studentPhotoUrl = 'images/' + studentPhotoUrl;
         }
         const newSurvey = new Survey({
             courses,
@@ -67,7 +71,7 @@ exports.postCreateSurvey = async(req, res, next) => {
             studentPhotoUrl
         });
         const survey = await newSurvey.save();
-        res.status(201).json({ survey: survey, message: 'Survey created' });
+        res.status(201).json({ message: 'Survey created', user: survey });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
