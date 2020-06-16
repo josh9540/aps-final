@@ -58,7 +58,11 @@
 
 
 
-
+    <style>
+        .col-lg-3 {
+            width: 20% !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -303,6 +307,24 @@
                             <a href="/admin/registeration" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-purple">
+                            <div class="inner">
+                                <h3>
+                                    <%= sum %>
+                                </h3>
+                                <h5><i class="fa fa-arrow-up"></i>
+                                    <%= payment[0].count %>
+                                </h5>
+                                <p>Payments</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa  fa-inr"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">&nbsp; </a>
+                        </div>
+                    </div>
                     <!-- ./col -->
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
@@ -367,7 +389,7 @@
                         <div class="nav-tabs-custom">
                             <!-- Tabs within a box -->
                             <ul class="nav nav-tabs pull-right">
-                                <li class="active"><a href="#revenue-chart" data-toggle="tab">Registerations</a></li>
+                                <li class="active"><a href="#revenue-chart" data-toggle="tab">Payments</a></li>
                                 <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
                             </ul>
                             <div class="tab-content no-padding">
@@ -395,13 +417,13 @@
                                 <form action="/admin/email" method="post">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="emailto" placeholder="Email to:">
+                                        <input type="text" required class="form-control" name="emailto" placeholder="Email to:">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                        <input type="text" required class="form-control" name="subject" placeholder="Subject">
                                     </div>
                                     <div>
-                                        <textarea name="msg" class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                        <textarea name="msg" required class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                     </div>
                                     <div class="box-footer clearfix">
                                         <button type="submit" class="pull-right btn btn-default" id="sendEmail">Send
@@ -419,6 +441,20 @@
                         <!-- Map box -->
 
                         <!-- solid sales graph -->
+                        <div class="box box-solid ">
+                            <div class="box-header">
+                                <i class="fa fa-th"></i>
+
+                                <h3 class="box-title">Student Registrations</h3>
+
+                            </div>
+                            <div class="box-body border-radius-none">
+                                <div class="chart" id="line-chart1" style="height: 282px;"></div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <!-- /.box-footer -->
+                        </div>
                         <div class="box box-solid ">
                             <div class="box-header">
                                 <i class="fa fa-th"></i>
@@ -542,7 +578,7 @@
     <script>
         Morris.Bar({
             // ID of the element in which to draw the chart.
-            element: 'revenue-chart',
+            element: 'line-chart1',
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
             data: [{
@@ -600,6 +636,40 @@
             }, {
                 year: '<%= sur[0].day %>',
                 value: <%= sur[0].count %>
+            }],
+            // The name of the data record attribute that contains x-values.
+            xkey: 'year',
+            // A list of names of data record attributes that contain y-values.
+            ykeys: ['value'],
+            // Labels for the ykeys -- will be displayed when you hover over the
+            // chart.
+            labels: ['Value']
+        });
+        Morris.Line({
+            // ID of the element in which to draw the chart.
+            element: 'revenue-chart',
+
+            data: [{
+                year: '<%= payment[6].day %>',
+                value: <%= payment[6].count %>
+            }, {
+                year: '<%= payment[5].day %>',
+                value: <%= payment[5].count %>
+            }, {
+                year: '<%= payment[4].day %>',
+                value: <%= payment[4].count %>
+            }, {
+                year: '<%= payment[3].day %>',
+                value: <%= payment[3].count %>
+            }, {
+                year: '<%= payment[2].day %>',
+                value: <%= payment[2].count %>
+            }, {
+                year: '<%= payment[1].day %>',
+                value: <%= payment[1].count %>
+            }, {
+                year: '<%= payment[0].day %>',
+                value: <%= payment[0].count %>
             }],
             // The name of the data record attribute that contains x-values.
             xkey: 'year',

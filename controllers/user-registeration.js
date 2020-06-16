@@ -8,10 +8,10 @@ const College = require('../modals/College');
 const fileHelper = require('../util/file');
 const amountFinder = require('../util/amount');
 
-// const instance = new Razorpay({
-//     key_id: process.env.KEY_ID,
-//     key_secret: process.env.KEY_SECRET,
-// });
+const instance = new Razorpay({
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.KEY_SECRET,
+});
 
 exports.getRegistrationCreate = async(req, res, next) => {
     try {
@@ -150,30 +150,35 @@ exports.postRegisterationCreate = async(req, res, next) => {
             studentPhotoUrl
         });
         const user = await newUser.save();
-        // const amount = await amountFinder(user.courses);
-        // var options = {
-        //     amount: amount,
-        //     currency: "INR",
-        //     receipt: "aa110055aaa",
-        //     payment_capture: '0'
-        // };
-        // const order = await instance.orders.create(options);
+        const amount = await amountFinder(user.courses);
+        const orderIdGenerator = require('../util/order-no');
+        const order_id = await orderIdGenerator();
+        var options = {
+            amount: amount,
+            currency: "INR",
+            receipt: order_id,
+            payment_capture: '1'
+        };
+        const order = await instance.orders.create(options);
         // res.render('pay');
-        res.render('public/registration-form', {
-            errorMessage: 'Registeration Successful',
-            courses: courses,
-            colleges: colleges
-        });
-        // res.render('pay', {
-        //         key: process.env.KEY_ID,
-        //         amount: order.amount,
-        //         name: user.name,
-        //         contact: user.contact,
-        //         email: user.email,
-        //         id: order.id,
-        //         _id: user._id
-        //     })
-        // console.log(order)
+        // res.render('public/registration-form', {
+        //     errorMessage: 'Registeration Successful',
+        //     courses: courses,
+        //     colleges: colleges
+        // });
+        user.amount = amount / 100;
+        user.order_id = order_id;
+        await user.save();
+        res.render('pay', {
+                key: process.env.KEY_ID,
+                amount: order.amount,
+                name: user.name,
+                contact: user.contact,
+                email: user.email,
+                id: order.id,
+                _id: user._id
+            })
+            // console.log(order)
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -397,12 +402,25 @@ exports.postPaid = async(req, res, next) => {
         .digest("hex");
     const isSignatureValid = generatedSignature === req.body.razorpay_signature;
     let errorMessage = "Payment Unsuccessful";
+    const _id = req.body._id;
+    let user = await UserRegistration.findById(_id);
     if (isSignatureValid) {
+        user.razorpay_order_id = req.body.razorpay_order_id
+        user.razorpay_payment_id = req.body.razorpay_payment_id;
+        user.razorpay_signature = req.body.razorpay_signature;
+        user.paymentDate = Date.now();
+        user = await user.save();
         errorMessage = "Payment Successful"
+        const mailer = require('../util/payment-mailer');
+        mailer(user);
+    } else {
+        user.failedPayments.push({ amount: user.amount, order_id: user.order_id, date: Date.now() });
+        user.amount = undefined;
+        user.order_id = undefined;
+        user = await user.save();
     }
-    res.render('public/registration-form', {
+    res.render('paid', {
         errorMessage: errorMessage,
-        courses: courses,
-        colleges: colleges
+        user
     });
 }

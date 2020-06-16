@@ -175,7 +175,16 @@ exports.getEditRegisteration = (req, res, next) => {
 exports.postEditRegisteration = async(req, res, next) => {
     try {
         const { email, contact } = req.body;
-        const user = await UserRegistration.findOne({ email: email, contact: contact });
+        let user;
+        if (email != '') {
+            user = await UserRegistration.findOne({ email: email });
+        }
+        if (contact.toString().length === 10) {
+            user = await UserRegistration.findOne({ contact: contact });
+        }
+        if (!user) {
+            return res.render('survey-edit', { errorMessage: 'Invalid email or contact' });
+        }
 
         if (!user) {
             return res.render('edit-reg', { errorMessage: 'Invalid email or contact' });

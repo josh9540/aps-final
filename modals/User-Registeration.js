@@ -131,6 +131,27 @@ const userSchema = new Schema({
     },
     studentPhotoUrl: {
         type: String
+    },
+    amount: {
+        type: Number
+    },
+    order_id: {
+        type: String,
+    },
+    paymentDate: {
+        type: Date
+    },
+    razorpay_order_id: {
+        type: String,
+    },
+    razorpay_payment_id: {
+        type: String,
+    },
+    razorpay_signature: {
+        type: String,
+    },
+    failedPayments: {
+        type: Array
     }
 }, {
     timestamps: true

@@ -123,7 +123,13 @@ exports.getEditSurvey = (req, res, next) => {
 exports.postEditSurvey = async(req, res, next) => {
     try {
         const { email, contact } = req.body;
-        const user = await Survey.findOne({ email: email, contact: contact });
+        let user;
+        if (email != '') {
+            user = await Survey.findOne({ email: email });
+        }
+        if (contact.toString().length === 10) {
+            user = await Survey.findOne({ contact: contact });
+        }
         if (!user) {
             return res.render('survey-edit', { errorMessage: 'Invalid email or contact' });
         }

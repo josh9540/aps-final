@@ -62,8 +62,8 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan('combined', { stream: accessLogStream }));
 
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 app.use(
     multer({
         storage: fileStorage,
@@ -81,10 +81,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(
     session({
-        secret: 'my secret',
+        secret: 'anyrandomsecretkeytobeaddedhere',
         resave: false,
         saveUninitialized: false,
-        store: store
+        store: store,
+        cookie: {
+            maxAge: 600000,
+            expires: 1800000
+        }
     })
 );
 

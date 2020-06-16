@@ -53,6 +53,9 @@ const surveySchema = new Schema({
     bloodGroup: {
         type: String
     },
+    university: {
+        type: String,
+    },
     board: {
         type: String,
     },
@@ -73,7 +76,7 @@ const surveySchema = new Schema({
     },
     studentPhotoUrl: {
         type: String
-    }
+    },
 }, {
     timestamps: true
 });

@@ -141,8 +141,76 @@ exports.getDashboard = async(req, res, next) => {
                     }
                 }).countDocuments()
             }
+        ];
+        const user = await UserRegisteration.find({ amount: { $gt: 0 } });
+        const payment = [{
+                day: new Date().toISOString().substring(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().startOf('day').toDate(),
+                        $lte: moment().endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }, {
+                day: moment().subtract(1, 'days').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(1, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(1, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            },
+            {
+                day: moment().subtract(2, 'day').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(2, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(2, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }, {
+                day: moment().subtract(3, 'days').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(3, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(3, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }, {
+                day: moment().subtract(4, 'days').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(4, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(4, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }, {
+                day: moment().subtract(5, 'days').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(5, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(5, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }, {
+                day: moment().subtract(6, 'days').toISOString().substr(0, 10),
+                count: totalSum(await UserRegisteration.find({
+                    createdAt: {
+                        $gte: moment().subtract(6, 'days').startOf('day').toDate(),
+                        $lte: moment().subtract(6, 'days').endOf('day').toDate()
+                    },
+                    amount: { $gt: 0 }
+                }))
+            }
         ]
-        res.render('dashboard', { registerations, courses, colleges, surveys, reg: daysRegisteration, sur: daysSurvey });
+        let sum = totalSum(user);
+        res.render('dashboard', { registerations, courses, colleges, surveys, reg: daysRegisteration, sur: daysSurvey, sum, payment });
     } catch (err) {
         const error = new Error(err);
         error.httpStatusCode = 500;
@@ -209,4 +277,12 @@ exports.sendEmail = (req, res, next) => {
         }
     });
     res.redirect('/admin/')
+}
+
+const totalSum = (user) => {
+    let sum = 0
+    user.forEach(e => {
+        sum += e.amount;
+    });
+    return sum;
 }
