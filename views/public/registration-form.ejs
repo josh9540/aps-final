@@ -16,7 +16,6 @@
     <meta name="author" content="okler.net">
 
     <%- include('../includes/head.ejs') %>
-
 </head>
 
 <body class="loading-overlay-showing" data-plugin-page-transition data-loading-overlay data-plugin-options="{'hideDelay': 500}">
@@ -64,16 +63,16 @@
                                     <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">
                                 </div>
                                 <div class="mb20">
-                                    <label for="departments">Select Course</label>
-                                    <select class="form-control" id="departments" multiple name="courses">
+                                    <label for="departments">Select Course<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <select class="form-control" data-role="select2" id="departments" multiple name="courses" required>
                                         <% courses.forEach(c => { %>
                                             <option value="<%= c.courseName %>" id="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
                                         <% }) %>
                                 </select>
                                 </div>
                                 <div class="mb20">
-                                    <label for="college">Select College</label>
-                                    <select class="form-control" id="college" name="college">
+                                    <label for="college">Select College<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <select class="form-control" required id="college" name="college">
                                         <option value="none">Select College</option>
                                         <% colleges.forEach(e => { %>
                                             <option value="<%= e.collegeName %>" id="<%= e.collegeName %>"><%= e.collegeName %></option>
@@ -93,8 +92,8 @@
                                     <input type="text" placeholder="Occupation" value="" class="form-control" name="fatherOccupation" id="fatherOccupation" required>
                                 </div>
                                 <div class="mb20">
-                                    <label for="dob">Date Of Birth</label>
-                                    <input type="date" name="dob" value="" placeholder="Date of Birth" id="dob" class="form-control">
+                                    <label for="dob">Date Of Birth<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input type="date" name="dob" value="" required placeholder="Date of Birth" id="dob" class="form-control">
                                 </div>
                                 <div class="mb20">
                                     <label for="category">Category</label>
@@ -107,8 +106,8 @@
                                     </select>
                                 </div>
                                 <div class="mb20">
-                                    <label for="address">Address</label>
-                                    <input type="text" name="address" value="" id="address" placeholder="Address" class="form-control">
+                                    <label for="address">Address<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <input type="text" name="address" value="" required id="address" placeholder="Address" class="form-control">
                                 </div>
                                 <div class="mb20">
                                     <label for="state">State</label>
@@ -307,7 +306,7 @@
                     setTimeout(() => {
                         const email = document.getElementById('email').value;
                         if (email.includes('@')) {
-                            fetch('http://localhost:3000/survey/find/' + email)
+                            fetch('/survey/find/' + email)
                                 .then(data => {
                                     return data.json()
                                 }).then(jsonData => {

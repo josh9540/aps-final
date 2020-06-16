@@ -156,6 +156,6 @@ router.get('/survey/delete/:_id', isAuth, surveyController.deleteSurvey);
 router.get('/survey/csv', isAuth, surveyController.getCsv);
 router.get('/survey/edit/:_id', isAuth, surveyController.getEditRegisterationId);
 router.post('/survey/filter', isAuth, surveyController.getFilter);
-router.post('/email', isAuth, adminController.sendEmail);
+router.post('/email', isAuth, isAdmin, adminController.sendEmail);
 
 exports.routes = router;

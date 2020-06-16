@@ -203,7 +203,7 @@ exports.getFind = async(req, res, next) => {
         if (user) {
             res.status(200).json({ user: user });
         } else {
-            res.status(404).json({ message: "Not found" })
+            res.status(200).json({ message: "Not found" })
         }
     } catch (err) {
         if (!err.statusCode) {

@@ -98,6 +98,8 @@ const csrfProtection = csrf();
 app.use(csrfProtection);
 app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
+    res.locals.nameunique = (req.session.user) ? (req.session.user.firstName.toUpperCase() + ' ' + req.session.user.lastName.toUpperCase()) : undefined;
+    res.locals.roleunique = (req.session.user) ? (req.session.user.role.toUpperCase()) : undefined;
     next();
 });
 app.use(publicRoutes.routes);

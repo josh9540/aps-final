@@ -166,7 +166,7 @@
                                     <i class="fa fa-user-circle" style="color: white; font-size: 1.4em;"></i>
                                     <span class="hidden-xs">
        
-       Admin
+<%= nameunique %>
        
    </span>
                                 </a>
@@ -176,12 +176,12 @@
                                         <i class="fa fa-user-circle" style="color: white; font-size: 7em;"></i>
                                         <p>
 
-                                            Admin
+                                            <%= nameunique %>
 
-                                            <br>
+                                                <br>
                                         </p>
                                         <p>
-                                            user
+                                            <%= roleunique %>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -229,14 +229,13 @@
                     </div>
                     <div class="pull-left info">
                         <p>
-                            Admin
-
+                            <%= nameunique %>
                         </p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
+                <!-- <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -244,7 +243,7 @@
             </button>
           </span>
                     </div>
-                </form>
+                </form> -->
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
@@ -255,54 +254,56 @@
                     <li>
                         <a href="/admin/">Home</a>
                     </li>
-                    <li>
-                        <a href="/admin/role/">
+                    <% if(roleunique === 'ADMIN') {%>
+                        <li>
+                            <a href="/admin/role/">
 
 
-                            <i class="fa fa-server"></i> Roles
+                                <i class="fa fa-server"></i> Roles
 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/user/">
-
-
-                            <i class="fa fa-users"></i> Users
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/course/">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/user/">
 
 
-                            <i class="fa fa-book"></i> Courses
+                                <i class="fa fa-users"></i> Users
 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/college/">
-
-
-                            <i class="fa fa-graduation-cap"></i> College
-
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="/admin/registeration/">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/course/">
 
 
-                            <i class="fa fa-book"></i> Registrations
+                                <i class="fa fa-book"></i> Courses
 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/survey/">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/college/">
 
 
-                            <i class="fa fa-book"></i> Survey
+                                <i class="fa fa-graduation-cap"></i> College
 
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                        <%}%>
+                            <li class="active">
+                                <a href="/admin/registeration/">
+
+
+                                    <i class="fa fa-book"></i> Registrations
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/survey/">
+
+
+                                    <i class="fa fa-book"></i> Survey
+
+                                </a>
+                            </li>
 
 
 
