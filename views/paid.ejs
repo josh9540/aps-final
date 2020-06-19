@@ -41,7 +41,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-12 order-2 order-md-1 align-self-center backgroundHeading">
-                                <h1 data-title-border>Upcomming Pages</h1>
+                                <h1 data-title-border>Payment</h1>
                             </div>
                             <!-- <div class="col-md-4 order-1 order-md-2 align-self-center">
 								<ul class="breadcrumb d-block text-md-right">
@@ -54,56 +54,32 @@
                 </section>
 
                 <div class="container pb-1">
-                    <div class="row pt-4">
-                        <div class="col">
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center font-weight-bold">
-                                    Name:
+                    <div class="row pt-4 paymentForm">
+                        <div class="col-md-12 pd0">
+                            <div class="overflow-hidden">
+                                <h3 class="font-weight-bold topHeading">                                    
                                     <%= user.name %>
                                 </h3>
+								<h4 class="textMsg borderBottom"> Contact<span class="amount"> <%= user.contact %></span></h4>
+								<h4 class="textMsg borderBottom"> Email<span class="amount"><%= user.email %></span></h4>
+								<h4 class="textMsg borderBottom"> Amount Paid<span class="amount">₹<%= user.amount %></span></h4>
+                            
+                                <h4 class="textMsg borderBottom">
+                                    Courses Selected
+									<span class="amount">
+										<% user.courses.forEach(e => { %>                                
+                                        <%= e %> 
+										<%}) %>
+									</span>
+                                </h4>                           
+                                        <h4 class="textMsg borderBottom">Order Id
+                                           <span class="amount"> <%= user.order_id %></span>
+                                        </h4>
+										<h4 class="textMsg mr0">Status
+                                           <span class="amount"> <%= errorMessage %></span>
+                                        </h4>
                             </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    Contact:
-                                    <%= user.contact %>
-                                </h3>
-                            </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    Email:
-                                    <%= user.email %>
-                                </h3>
-                            </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    Amount Paid:₹
-                                    <%= user.amount %>
-                                </h3>
-                            </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    Courses Selected:
-                                </h3>
-                            </div>
-                            <% user.courses.forEach(e => { %>
-                                <div class="overflow-hidden mb-3">
-                                    <h3 class="text-center fontweight-bold">
-                                        <%= e %>
-                                    </h3>
-                                </div>
-                                <%}) %>
-                                    <div class="overflow-hidden mb-3">
-                                        <h3 class="text-center fontweight-bold">
-                                            Order Id:
-                                            <%= user.order_id %>
-                                        </h3>
-                                    </div>
-                                    <div class="overflow-hidden mb-3">
-                                        <h3 class="text-center fontweight-bold">
-                                            Status:
-                                            <%= errorMessage %>
-                                        </h3>
-                                    </div>
+                                    
                         </div>
                     </div>
                 </div>
