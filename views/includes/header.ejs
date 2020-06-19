@@ -3,7 +3,7 @@
         <div class="header-container container">
             <div class="header-row">
                 <div class="header-column">
-                    <div class="header-row">
+                    <div class="header-row topPosition">
                         <div class="header-logo mr0">
                             <a href="/">
                                 <img alt="" width="90" height="" data-sticky-width="90" data-sticky-height="" data-sticky-top="40" src="/public/img/logo.png">
@@ -223,6 +223,12 @@
 </header>
 
 <style>
+#header .topPosition{top: 15px;position:absolute;}
+.borderTop{border-top: 1px solid #e9e9e9; padding-top: 10px;}
+.formChebox{float: left; margin-right: 20px;margin-bottom: 10px;}
+.formChebox input{width: 18px; height: 18px;  margin-top: -4px; vertical-align: middle;}
+.paymentForm{max-width:800px; margin: 0 auto; background: #fbfbfb; border: 1px solid #ccc;  padding: 24px}
+.errorMessage{color: #ff0000; font-size: 20px; margin-bottom: 10px;}
     .registrationButton {
         z-index: 1;
         position: fixed;
@@ -231,7 +237,7 @@
         font-size: 19px;
         color: #fff;
         padding: 5px 15px;
-        background: #e2ac4b;
+        background: #f7f7f76b;
         right: -50px;
         border-radius: 12px 12px 0 0;
     }

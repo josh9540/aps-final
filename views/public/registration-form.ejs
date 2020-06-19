@@ -53,7 +53,7 @@
                     <div class="row appear-animation" data-appear-animation="fadeInUpShorter">
                         <div class="col-md-8" style="max-width: 800px;  margin: 0 auto;">
                             <div style="color: red;">
-                                <h2>
+                                <h2 class="errorMessage">
                                     <%= errorMessage %>
                                 </h2>
                             </div>
@@ -63,7 +63,20 @@
                                     <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">
                                 </div>
                                 <div class="mb20">
-                                    <label for="departments">Select Course<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                   <label for="departments">Select Course<sup style="color: red; text-decoration: bold;">*</sup></label>
+									 <div class="form-group formChebox">
+									  <input type="checkbox" id="html">
+									  <label for="" style="width:inherit; font-weight:normal;">Doctor (INR 1500)</label>
+									</div>
+									<div class="form-group formChebox">
+									  <input type="checkbox" id="html">
+									  <label for="" style="width:inherit; font-weight:normal;">Delhi Police (INR 2000)</label>
+									</div>
+									<div class="form-group formChebox">
+									  <input type="checkbox" id="html">
+									  <label for="" style="width:inherit; font-weight:normal;">NDA Service (INR 2000)</label>
+									</div>
+									
                                     <select class="form-control" data-role="select2" id="departments" multiple name="courses" required>
                                         <% courses.forEach(c => { %>
                                             <option value="<%= c.courseName %>" id="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
@@ -281,7 +294,7 @@
                                     <input type="file" id="photo" name="photo" />
                                 </div>
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                <div class="mb20 text-right">
+                                <div class="text-right borderTop">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                         </div>
