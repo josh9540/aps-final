@@ -54,27 +54,20 @@
                 </section>
 
                 <div class="container pb-1">
-                    <div class="row pt-4">
+                    <div class="row pt-4 paymentForm">
                         <div class="col">
-                            <div class="overflow-hidden mb-3">
+                            <div class="overflow-hidden">
                                 <h3 class="text-center font-weight-bold">
                                     <%= name %>
-                                </h3>
+                                </h3
+								<h4> <%= contact %></h4>
+								<h4> <%= email %></h4>
                             </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    <%= contact %>
-                                </h3>
-                            </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    <%= email %>
-                                </h3>
-                            </div>
-                            <div class="overflow-hidden mb-3">
-                                <h3 class="text-center fontweight-bold">
-                                    ₹
-                                    <%= amount/100 %>
+                           
+                            <div class="overflow-hidden ">
+                                <h3 class="fontweight-bold">
+                                   <span class="amount"> ₹
+                                    <%= amount/100 %></span>
                                 </h3>
                             </div>
                             <form action="/paid" method="POST">
