@@ -63,25 +63,13 @@
                                     <input class="form-control" id="email" name="email" required type="text" placeholder="Enter email" value="">
                                 </div>
                                 <div class="mb20">
-                                   <label for="departments">Select Course<sup style="color: red; text-decoration: bold;">*</sup></label>
-									 <div class="form-group formChebox">
-									  <input type="checkbox" id="html">
-									  <label for="" style="width:inherit; font-weight:normal;">Doctor (INR 1500)</label>
-									</div>
-									<div class="form-group formChebox">
-									  <input type="checkbox" id="html">
-									  <label for="" style="width:inherit; font-weight:normal;">Delhi Police (INR 2000)</label>
-									</div>
-									<div class="form-group formChebox">
-									  <input type="checkbox" id="html">
-									  <label for="" style="width:inherit; font-weight:normal;">NDA Service (INR 2000)</label>
-									</div>
-									
-                                    <select class="form-control" data-role="select2" id="departments" multiple name="courses" required>
-                                        <% courses.forEach(c => { %>
-                                            <option value="<%= c.courseName %>" id="<%= c.courseName %>"><%= c.courseName %> (INR <%= c.coursePrice %>)</option>
-                                        <% }) %>
-                                </select>
+                                    <label for="departments">Select Course<sup style="color: red; text-decoration: bold;">*</sup></label>
+                                    <% for(let i=0;i<courses.length;i++) {%>
+                                        <div class="form-group formChebox">
+                                            <input type="checkbox" id="check<%=i%>" class="check" name="courses" value="<%= courses[i].courseName %>" id="html">
+                                            <label for="" style="width:inherit; font-weight:normal;"><%=courses[i].courseName %> (INR <%= courses[i].coursePrice %>)</label>
+                                        </div>
+                                        <%}%>
                                 </div>
                                 <div class="mb20">
                                     <label for="college">Select College<sup style="color: red; text-decoration: bold;">*</sup></label>
@@ -323,20 +311,47 @@
                                 .then(data => {
                                     return data.json()
                                 }).then(jsonData => {
-                                    document.getElementById('name').value = jsonData.user.name;
-                                    document.getElementById('fatherName').value = jsonData.user.fatherName;
-                                    document.getElementById('dob').value = jsonData.user.dob;
-                                    document.getElementById('address').value = jsonData.user.address;
-                                    document.getElementById('district').value = jsonData.user.district;
-                                    document.getElementById('contact').value = jsonData.user.contact;
-                                    document.getElementById('height').value = jsonData.user.height;
-                                    document.getElementById('weight').value = jsonData.user.weight;
-                                    document.getElementById(jsonData.user.college).selected = "true";
-                                    document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                                    if (jsonData.user) {
+                                        document.getElementById('name').value = jsonData.user.name;
+                                        document.getElementById('fatherName').value = jsonData.user.fatherName;
+                                        document.getElementById('dob').value = jsonData.user.dob;
+                                        document.getElementById('address').value = jsonData.user.address;
+                                        document.getElementById('district').value = jsonData.user.district;
+                                        document.getElementById('contact').value = jsonData.user.contact;
+                                        document.getElementById('height').value = jsonData.user.height;
+                                        document.getElementById('weight').value = jsonData.user.weight;
+                                        document.getElementById(jsonData.user.college).selected = "true";
+                                        document.getElementById(jsonData.user.bloodGroup).selected = "true";
+                                    }
                                 })
                         }
                     }, 1000);
                 })
+            </script>
+            <script>
+                function submit() {
+                    const check = document.querySelectorAll('.check');
+                    let j = 0;
+                    check.forEach(e => {
+                        if (document.getElementById(e.id).checked) {
+                            j++;
+                        }
+                        console.log(j);
+                    });
+                    if (j > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                $(document).ready(function() {
+                    $('form').on('submit', function(e) {
+                        if (!submit()) {
+                            e.preventDefault();
+                            alert('Please select course');
+                        }
+                    });
+                });
             </script>
 </body>
 

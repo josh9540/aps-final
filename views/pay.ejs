@@ -49,7 +49,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-12 order-2 order-md-1 align-self-center backgroundHeading">
-                                <h1 data-title-border>Proceed to Pay</h1>
+                                <h1 data-title-border>Payment</h1>
                             </div>
                             <!-- <div class="col-md-4 order-1 order-md-2 align-self-center">
 								<ul class="breadcrumb d-block text-md-right">
@@ -63,26 +63,26 @@
 
                 <div class="container pb-1">
                     <div class="row pt-4 paymentForm">
-                        <div class="col">
+                        <div class="col-md-12 pd0">
                             <div class="overflow-hidden">
-                                <h3 class="text-center font-weight-bold">
+                                <h3 class="font-weight-bold mb20">
                                     <%= name %>
-                                </h3>
-                                <h4>
-                                    <%= contact %>
-                                </h4>
-                                <h4>
-                                    <%= email %>
-                                </h4>
+                                </h3 <h4 class="textMsg">
+                                <%= contact %>
+                                    </h4>
+                                    <h4 class="textMsg">
+                                        <%= email %>
+                                    </h4>
                             </div>
 
                             <div class="overflow-hidden ">
-                                <h3 class="fontweight-bold">
+                                <h3 class="textMsg borderTop">
+                                    Total:
                                     <span class="amount"> ₹
                                     <%= amount/100 %></span>
                                 </h3>
                             </div>
-                            <form action="/paid" method="POST">
+                            <form action="/paid" method="POST" class="borderTop text-right mr0">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <input type="hidden" name="_id" value="<%= _id %>">
                                 <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="<%= key %>" data-amount="<%= amount %>" data-currency="INR" data-order_id="<%= id %>" data-buttontext="Proceed to pay" data-name="Acme Corp" data-description="Test transaction" data-image="https://lh3.googleusercontent.com/proxy/CQAVAtCAMgeln4WNebXMaHkvSmu4Z0dgg9aeFE4eNH0-tJRjiUtz8is9ppSM-gWpcTLlpIw-VwUGLHIxcPwRAx2wBSKrwlM"
