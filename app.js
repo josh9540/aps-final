@@ -20,7 +20,7 @@ const publicRoutes = require('./routes/public');
 const mobileRoutes = require('./routes/mobile');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = `mongodb://${process.env.MONGODB_HOST_NAME}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -33,7 +33,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        cb(null, req.name + Date.now().toString() + '-' + file.originalname);
+        cb(null, req.body.name + Date.now().toString() + '-' + file.originalname);
     }
 });
 

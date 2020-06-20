@@ -132,6 +132,10 @@ const userSchema = new Schema({
     studentPhotoUrl: {
         type: String
     },
+    mode: {
+        type: String,
+        default: "Web"
+    },
     amount: {
         type: Number
     },

@@ -77,6 +77,10 @@ const surveySchema = new Schema({
     studentPhotoUrl: {
         type: String
     },
+    mode: {
+        type: String,
+        default: "Web"
+    }
 }, {
     timestamps: true
 });

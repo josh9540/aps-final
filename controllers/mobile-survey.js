@@ -42,8 +42,10 @@ exports.postCreateSurvey = async(req, res, next) => {
         let studentPhotoUrl;
         if (req.body.photo != '') {
             studentPhotoUrl = req.body.name + Date.now().toString() + 'photo.jpg';
-            imageConverter(req.body.photo, studentPhotoUrl);
-            studentPhotoUrl = 'images/' + studentPhotoUrl;
+            let done = await imageConverter(req.body.photo, studentPhotoUrl);
+            if (done) {
+                studentPhotoUrl = 'images/' + studentPhotoUrl;
+            }
         }
         const newSurvey = new Survey({
             courses,
@@ -68,7 +70,8 @@ exports.postCreateSurvey = async(req, res, next) => {
             forceMember,
             governmentMember,
             other,
-            studentPhotoUrl
+            studentPhotoUrl,
+            mode: "Mobile"
         });
         const survey = await newSurvey.save();
         res.status(201).json({ message: 'Survey created', user: survey });
